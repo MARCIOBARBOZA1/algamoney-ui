@@ -1,0 +1,66 @@
+.container-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-flex > * {
+  width: 100%;
+}
+
+@media (min-width: 319px) {
+	.container-table {
+	height: 300px;
+	width: 95%;
+	overflow: auto;
+	}
+}
+
+
+@media (min-width: 576px) {
+	.container-table {
+	height: 300px;
+	width: 95%;
+	overflow: auto;
+	}
+}
+
+@media (min-width: 768px) {
+	.container-table {
+	height: 300px;
+	width: 95%;
+	overflow: auto;
+	}
+}
+
+@media (min-width: 992px) {
+	.container-table {
+ 	height: 300px;
+ 	width: 95%;
+ 	overflow: auto;
+	}
+}
+
+@media (min-width: 1200px) {
+	.container-table {
+ 	height: 300px;
+ 	width: 95%px;
+ 	overflow: auto;
+	}	
+}
+
+td.mat-column-	star {
+  width: 20px;
+  padding-right: 8px;
+}
+
+th.mat-column-position, td.mat-column-position {
+  padding-left: 8px;
+}
+
+.mat-table-sticky:first-child {
+  border-right: 1px solid #e0e0e0;
+}
+
+.mat-table-sticky:last-child {
+  border-left: 1px solid #e0e0e0;
+}

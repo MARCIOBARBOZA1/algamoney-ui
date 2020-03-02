@@ -1,0 +1,55 @@
+<div class="container">
+	<br><br><br><br>
+	<form #pessoaForm="ngForm" (ngSubmit)="salvar(pessoaForm)">
+		<h2>Nova Pessoa</h2>
+
+		<div class="form-group">
+			<label>Nome</label>
+			<input class="form-control" name="nome" type="text" [(ngModel)]="pessoa.nome">			
+		</div>
+		<div class="row">
+			<div class="form-group  col-md-6">
+				<label>Logradouro</label>
+				<input class="form-control" name="logradouro" [(ngModel)]="pessoa.endereco.logradouro" type="text">			
+			</div>
+			<div class="form-group  col-md-6">
+				<label>Numero</label>
+				<input class="form-control" name="numero" [(ngModel)]="pessoa.endereco.numero" type="text">			
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group  col-md-4">
+				<label>Complemento</label>
+				<input class="form-control" name="complemento" [(ngModel)]="pessoa.endereco.complemento" type="text">			
+			</div>
+			<div class="form-group  col-md-4">
+				<label>Bairro</label>
+				<input class="form-control" name="bairro" [(ngModel)]="pessoa.endereco.bairro" type="text">			
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputZip">CEP</label>
+				<input type="text" class="form-control" name="cep" [(ngModel)]="pessoa.endereco.cep" id="inputZip">
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group  col-md-6">
+				<label>Municipio</label>
+				<input class="form-control" name="cidade" [(ngModel)]="pessoa.endereco.cidade" type="text">			
+			</div>
+			<div class="form-group  col-md-6">
+				<label>Estado</label>
+				<input class="form-control" name="estado" [(ngModel)]="pessoa.endereco.estado" type="text">			
+			</div>
+		</div>
+
+		<div class="col">
+			<button type="submit" class="btn btn-outline-primary">Salvar</button>
+			&nbsp;
+			<a routerLink="/lancamentos">Novo</a>
+			&nbsp;
+			<a routerLink="/pessoas">Voltar para a pesquisa</a>      
+		</div>
+
+	</form>
+
+</div>

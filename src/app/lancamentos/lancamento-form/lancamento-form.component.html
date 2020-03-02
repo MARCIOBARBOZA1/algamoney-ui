@@ -1,0 +1,95 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
+<div class="container-fluid">
+    <br><br><br><br>
+    <div>
+        <h2>Lancamentos</h2>
+    </div>
+
+    <mat-grid-list cols="1" rowHeight="2:1">
+
+    <form #lancamentoForm="ngForm" (ngSubmit)="consultar()" class="form">
+        <div class="container-flex">
+            <mat-form-field appearance="outline">
+                <mat-label>Descricao</mat-label>
+                <input matNativeControl placeholder="Input" type="text" name="descricao" [(ngModel)]="filtro.descricao">
+            </mat-form-field>
+        </div>
+
+        <p>
+            <mat-form-field appearance="outline">
+                <input matInput [matDatepicker]="dataVencimentoInicial" placeholder="Data Vencimento Inicial" name="dataVencimentoInicial" [(ngModel)]="filtro.dataVencimentoInicial">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #dataVencimentoInicial></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <input matInput [matDatepicker]="dataVencimentoFinal" placeholder="Data Vencimento Final" name="dataVencimentoFinal" [(ngModel)]="filtro.dataVencimentoFinal">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #dataVencimentoFinal></mat-datepicker>
+            </mat-form-field>
+        </p>
+
+        <div class="col-sm-3">
+            <button type="submit" class="btn btn-outline-primary">Pesquisar</button>
+        </div>
+        <br>
+    </form>
+    </mat-grid-list>
+    
+	    <div class="mat-app-background basic-container">
+			<app-mat-paginator [length]="totalRegistros" [pageSize]="filtro.itensPorPagina" showFirstLastButtons>loading</app-mat-paginator>
+		</div>
+		<div class="container-table mat-elevation-z8">
+		    <table mat-table [dataSource]="lancamentos" matSort>
+		
+			    <ng-container matColumnDef="pessoa" sticky>
+			        <th mat-header-cell *matHeaderCellDef> Nome </th>
+			        <td mat-cell *matCellDef="let element"> {{element.pessoa}} </td>
+			    </ng-container>
+		
+			    <ng-container matColumnDef="tipo">
+			        <th mat-header-cell *matHeaderCellDef> Tipo </th>
+			        <td mat-cell *matCellDef="let element"> {{element.tipo}} </td>
+			    </ng-container>
+			
+			    <ng-container matColumnDef="descricao">
+			        <th mat-header-cell *matHeaderCellDef> Descricao </th>
+			        <td mat-cell *matCellDef="let element"> {{element.descricao}} </td>
+			    </ng-container>
+				
+			    <ng-container matColumnDef="dataVencimento">
+			        <th mat-header-cell *matHeaderCellDef> Data Vencimento </th>
+			        <td mat-cell *matCellDef="let element"> {{element.dataVencimento}} </td>
+			    </ng-container>
+			
+			    <ng-container matColumnDef="dataPagamento">
+			        <th mat-header-cell *matHeaderCellDef> Data Pagamento </th>
+			        <td mat-cell *matCellDef="let element"> {{element.dataPagamento}} </td>
+			    </ng-container>
+		
+			    <ng-container matColumnDef="valor">
+			        <th mat-header-cell *matHeaderCellDef> Valor </th>
+			        <td mat-cell *matCellDef="let element"> {{element.valor}} </td>
+			    </ng-container>
+	
+                <!-- Star Column -->
+			    <ng-container matColumnDef="star" stickyEnd>
+			      <th mat-header-cell *matHeaderCellDef></th>
+			      <td mat-cell *matCellDef="let element">
+                      <button type="submit" class="btn btn-defualt btn-sm" [routerLink]="['/lancamentos', element.id]" data-toggle="tooltip" title="Editar">
+                          <img class="open-iconic" src="../assets/icones/open-iconic/svg/pencil.svg" alt="Editar">
+                      </button>
+                      <button type="submit" class="btn btn-defualt btn-sm" (click)="confirmExclusao(element.id)" data-toggle="tooltip" title="Excluir"><img class="open-iconic" src="../assets/icones/open-iconic/svg/trash.svg" alt="Excluir"></button>
+			      </td>
+			    </ng-container>
+						
+			    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+		    </table>
+		</div>
+   
+    <div class="col-sm-4">
+        <a type="button" class="btn btn-outline-primary" routerLink="/lancamentos/novo">Novo Lançamento</a>
+    </div>
+</div>
