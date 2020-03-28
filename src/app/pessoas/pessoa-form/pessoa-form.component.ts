@@ -10,6 +10,7 @@ import { config } from "rxjs";
 import { ErrorHandlerService } from './../../core/error-handler.service';
 import { DialogComponent } from "src/app/shared/dialog/dialog.component";
 import { PessoaService, PessoaFiltro } from '../pessoa.service';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -28,11 +29,13 @@ export class PessoaFormComponent implements OnInit {
           private pessoaService: PessoaService,
           private _snackBar: MatSnackBar,
           public dialog: MatDialog,
-          private errorHandler: ErrorHandlerService
+          private errorHandler: ErrorHandlerService,
+          private title: Title
           ) { }
 
   ngOnInit() {
     this.consultar();
+    this.title.setTitle('Pesquisa de pessoas');
   }
 
   consultar(pageIndex = 0) {
@@ -80,11 +83,7 @@ export class PessoaFormComponent implements OnInit {
   
   alternarStatus(pessoa: any): void {
       const novoStatus = !pessoa.ativo;
-      
-      console.log("Pessoa:" + pessoa);
-      console.log(novoStatus);
-      console.log(pessoa.id);
-      
+          
       this.pessoaService.mudarStatus(pessoa.id, novoStatus)
         .then(() => {
           const acao = novoStatus ? 'ativada' : 'desativada';

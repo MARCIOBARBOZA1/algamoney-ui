@@ -1,42 +1,44 @@
-import { Injectable, Input } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
+import { Injectable, Input, Directive } from '@angular/core';
 
-import * as moment from 'moment';
+import 'rxjs/add/operator/toPromise';
+
+import { environment } from './../../environments/environment';
+import { MoneyHttp } from '../seguranca/money-http'; 
 
 import { ErrorHandlerService } from '../core/error-handler.service';
 
+@Directive()
 export class CategoriaFiltro {
   nome: string;
   @Input() pageIndex: number;
-  itemPorPagina = 5;
+  pagina = 0;
+  itensPorPagina = 5;
 }
 
-@Injectable({
-    providedIn: 'root'
-})
-
+@Injectable()
 export class CategoriaService {
 
-  tmpUrl = 'http://localhost:8080/categorias';
+  tmpUrl: string;
 
   constructor(
-              private http: HttpClient,
-              private errorHandler: ErrorHandlerService
-              ) { }
+      private http: MoneyHttp,
+      private errorHandler: ErrorHandlerService
+  ) { 
+      this.tmpUrl = `${environment.apiUrl}/categorias`;
+  }
 
   async consultar(filtro: CategoriaFiltro): Promise<any> {
-    const headers = new HttpHeaders().append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
     let params = new HttpParams();
     
     if (filtro.nome) {
-        params = params.set('nome', filtro.nome);
+        params = params.append('nome', filtro.nome);
     }
-     
-    return this.http.get(`${this.tmpUrl}`,
-        { headers, params })
+    
+    return this.http.get<any>(`${this.tmpUrl}`, { params })
         .toPromise()
         .then(response => {
-        const categorias = response['content']
+        const categorias = response.content;
         return categorias;
         
       })
@@ -45,16 +47,12 @@ export class CategoriaService {
   }
   
   listarTodas(): Promise<any> {
-      const headers = new HttpHeaders().append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
-
-      return this.http.get(this.tmpUrl, { headers })
-      .toPromise()
-      .then(response => response );
+      return this.http.get<any>(this.tmpUrl)
+      .toPromise();
   }
   
   excluir(id: String): Promise<void> {
-      const headers = new HttpHeaders().append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
-      return this.http.delete(`${this.tmpUrl}/${id}`, { headers })
+      return this.http.delete(`${this.tmpUrl}/${id}`)
       .toPromise()
       .then(() => null)
       .catch(erro => this.errorHandler.handle(erro));

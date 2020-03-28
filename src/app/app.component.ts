@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from "src/app/shared/dialog/dialog.component";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,10 @@ import { DialogComponent } from "src/app/shared/dialog/dialog.component";
 })
 export class AppComponent {
     
-    constructor(public dialog: MatDialog) {}
+    constructor(
+      public dialog: MatDialog,
+      private router: Router
+    ) {}
     
     openDialog():void {
         const dialogRef = this.dialog.open(DialogComponent, {
@@ -24,6 +28,10 @@ export class AppComponent {
                 console.log('Erro: Registro não deletado!')
             }
         })
+    }
+    
+    exibindoNavBar() {
+        return this.router.url !== '/login';
     }
 
 }

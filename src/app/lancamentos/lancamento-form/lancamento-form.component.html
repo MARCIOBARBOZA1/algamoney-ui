@@ -9,7 +9,7 @@
 
     <mat-grid-list cols="1" rowHeight="2:1">
 
-    <form #lancamentoForm="ngForm" (ngSubmit)="consultar()" class="form">
+    <form #lancamentoForm="ngForm" (ngSubmit)="consultar()" class="ng-form">
         <div class="container-flex">
             <mat-form-field appearance="outline">
                 <mat-label>Descricao</mat-label>
@@ -20,12 +20,14 @@
         <p>
             <mat-form-field appearance="outline">
                 <input matInput [matDatepicker]="dataVencimentoInicial" placeholder="Data Vencimento Inicial" name="dataVencimentoInicial" [(ngModel)]="filtro.dataVencimentoInicial">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
+                <mat-datepicker-toggle matSuffix [for]="dataVencimentoInicial"></mat-datepicker-toggle>
                 <mat-datepicker #dataVencimentoInicial></mat-datepicker>
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <input matInput [matDatepicker]="dataVencimentoFinal" placeholder="Data Vencimento Final" name="dataVencimentoFinal" [(ngModel)]="filtro.dataVencimentoFinal">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
+                <mat-datepicker-toggle matSuffix [for]="dataVencimentoFinal"></mat-datepicker-toggle>
                 <mat-datepicker #dataVencimentoFinal></mat-datepicker>
             </mat-form-field>
         </p>
@@ -80,7 +82,7 @@
                       <button type="submit" class="btn btn-defualt btn-sm" [routerLink]="['/lancamentos', element.id]" data-toggle="tooltip" title="Editar">
                           <img class="open-iconic" src="../assets/icones/open-iconic/svg/pencil.svg" alt="Editar">
                       </button>
-                      <button type="submit" class="btn btn-defualt btn-sm" (click)="confirmExclusao(element.id)" data-toggle="tooltip" title="Excluir"><img class="open-iconic" src="../assets/icones/open-iconic/svg/trash.svg" alt="Excluir"></button>
+                      <button type="submit" [disabled]="!auth.temPermissao('ROLE_REMOVER_LANCAMENTO')" class="btn btn-defualt btn-sm" (click)="confirmExclusao(element.id)" data-toggle="tooltip" title="Excluir"><img class="open-iconic" src="../assets/icones/open-iconic/svg/trash.svg" alt="Excluir"></button>
 			      </td>
 			    </ng-container>
 						

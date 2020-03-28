@@ -1,19 +1,18 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import { LancamentoFormComponent } from "src/app/lancamentos/lancamento-form/lancamento-form.component";
-import { LancamentoCadastroComponent } from "src/app/lancamentos/lancamento-cadastro/lancamento-cadastro.component";
-import { PessoaFormComponent } from "src/app/pessoas/pessoa-form/pessoa-form.component";
-import { PessoaCadastroComponent } from "src/app/pessoas/pessoa-cadastro/pessoa-cadastro.component";
-import { PaginaNaoEncontradaComponent } from "src/app/core/pagina-nao-encontrada.component";
+import { NaoAutorizadoComponent } from './core/nao-autorizado.component';
+import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada.component';
 
 const routes: Routes = [
-      { path: '', redirectTo: 'lancamentos', pathMatch: 'full' },
-      { path: 'pessoas', component: PessoaFormComponent },
-      { path: 'pessoas/novo', component: PessoaCadastroComponent },
-      { path: 'pessoas/:id', component: PessoaCadastroComponent },
-      { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent },
-      { path: '**', redirectTo: 'pagina-nao-encontrada' }
+  //Era para usar o Lazy Loading
+  //{ path: 'lancamentos', loadChildren: 'app/lancamentos/lancamentos.module#LancamentosModule' },
+  //{ path: 'pessoas', loadChildren: 'app/pessoas/pessoas.module#PessoasModule' },
+                        
+  { path: '', redirectTo: 'lancamentos', pathMatch: 'full' },
+  { path: 'nao-autorizado', component: NaoAutorizadoComponent },
+  { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent },
+  { path: '**', redirectTo: 'pagina-nao-encontrada' }
 ];
 
 @NgModule({
@@ -22,5 +21,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-
 export class AppRoutingModule { }

@@ -8,14 +8,17 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" routerLinkActive="ativo" routerLink="/lancamentos">Lancamentos <span class="sr-only">(current)</span></a>
+      <li class="navbar-text">
+      	{{ auth.jwtPayload.nome }}
+      </li>
+      <li class="nav-item active" *ngIf="auth.temPermissao('ROLE_PESQUISAR_LANCAMENTO')">
+        <a class="nav-link" routerLink="/lancamentos">Lancamentos <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item" *ngIf="auth.temPermissao('ROLE_PESQUISAR_PESSOA')">
+        <a class="nav-link" routerLink="/pessoas">Pessoas</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="ativo" routerLink="/pessoas">Pessoas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Logout</a>
+        <a class="nav-link" href="#" (click)="logout()">Logout</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">

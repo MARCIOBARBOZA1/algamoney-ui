@@ -13,6 +13,7 @@ import { DialogComponent } from "src/app/shared/dialog/dialog.component";
 import { config } from "rxjs";
 
 import { ErrorHandlerService } from './../../core/error-handler.service';
+import { AuthService } from "src/app/seguranca/auth.service";
 
 
 @Component({
@@ -32,7 +33,8 @@ export class LancamentoFormComponent implements OnInit {
           private _snackBar: MatSnackBar,
           public dialog: MatDialog,
           private errorHandler: ErrorHandlerService,
-          private title: Title
+          private title: Title,
+          public auth: AuthService,
           ) { }
 
   ngOnInit() {
@@ -58,11 +60,6 @@ export class LancamentoFormComponent implements OnInit {
   
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  //aoMudarPagina(event: LazyLoadEvent) {
-  //    const pageIndex = event.first / event.rows;
-  //    this.consultar(pageIndex);
-  //  }
-  
   confirmExclusao(id: any ) {
       const dialogRef = this.dialog.open(DialogComponent, {
           width: '350px',

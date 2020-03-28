@@ -1,81 +1,68 @@
 <div class="container">
 <br><br><br><br>
-  <form #lancamentoForm="ngForm" (ngSubmit)="salvar(lancamentoForm)">
+  <form (ngSubmit)="salvar()" [formGroup]="formulario">
     <h2>{{editando ? 'Edição de' : 'Novo'}} Lançamento</h2>
 
-	<div class="btn-group btn-group-toggle" data-toggle="buttons">
-	  <label class="btn btn-outline-secondary" *ngIf="lancamento.tipo=='RECEITA' active">
-	    <input type="radio" name="tipo" id="receita" [(ngModel)]="lancamento.tipo" autocomplete="off" checked> RECEITA
-	  </label>
-	  <label class="btn btn-outline-secondary" *ngIf="lancamento.tipo=='DESPESA' active">
-	    <input type="radio" name="tipo" id="despesa" [(ngModel)]="lancamento.tipo" autocomplete="off"> DESPESA
-	  </label>
+	<div class="form-row">
+		<div class="form-group col-md-6">
+			<label for="selectTipo">Selecione o Tipo</label>
+			<select class="form-control" name="tipo" formControlName="tipo">
+	          <option selected value="{{formulario.get('tipo').value}}">{{formulario.get('tipo').value}}</option>
+	          <option>RECEITA</option>
+	          <option>DESPESA</option>
+	        </select>
+		</div>
 	</div>
 
     <div class="form-row">
       <div class="form-group col-md-6">
         <label name="dataVencimento">Vencimento</label>
-        <input class="form-control" name="dataVencimento" [(ngModel)]="lancamento.dataVencimento" type="date" required>
+        <input class="form-control" name="dataVencimento" formControlName="dataVencimento" type="date" required>
       </div>
       <div class="form-group col-md-6">
         <label name="dataPagamento">Pagamento</label>
-        <input class="form-control" name="dataPagamento" [(ngModel)]="lancamento.dataPagamento" type="date" required>
+        <input class="form-control" name="dataPagamento" formControlName="dataPagamento" type="date">
 	    </div>
     </div>
 	  
     <div class="form-row">
       <div class="form-group  has-danger  col-md-6">
         <label class="form-control-label">Descrição</label>
-        <input class="form-control" name="descricao" [(ngModel)]="lancamento.descricao" #validDescricao="ngModel" type="text" required minlength="5">
-        
-        <div *ngIf="validDescricao.hasError('required') && validDescricao.touched"  class="alert alert-warning alert-dismissible fade show" role="alert">
-          <strong>Erro:</strong> Informe uma descrição.
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div *ngIf="validDescricao.hasError('minlength') && validDescricao.touched"  class="alert alert-warning alert-dismissible fade show" role="alert">
-          <strong>Erro:</strong> Campo de ser maior que 5 carecteres.
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
+        <input class="form-control" name="descricao" formControlName="descricao" type="text" required>
       </div>
 
-      <div class="form-group  col-md-6">
+      <div class="form-group col-md-6">
         <label>Valor</label>
-        <input class="form-control" name="valor" [(ngModel)]="lancamento.valor" type="number" placeholder="0,00">
+        <input class="form-control" name="valor" formControlName="valor" type="number" placeholder="0,00">
       </div>
     </div>
 
     <div class="form-row">
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-6" formGroupName="categoria">
         <label for="selectCategoria">Categoria</label>
-        <select class="form-control" name="categoria" [(ngModel)]="lancamento.categoria.id" required>
-          <option selected>Selecione...</option>
-          <option *ngFor="let categoria of categorias" value="{{categoria.id}}">{{categoria?.nome}}</option>
+        <select class="form-control" name="categoria" required>
+          <option selected>{{formulario.get('categoria.nome').value}}</option>
+          <option *ngFor="let categoria of categorias" value="{{categoria.id}}">{{categoria.nome}}</option>
         </select>
       </div>
-
-      <div class="form-group col-md-6">
-        <label for="selectPessoa">Pessoa</label>
-        <select class="form-control" name="pessoa" [(ngModel)]="lancamento.pessoa.id" required>
-          <option selected>Selecione...</option>
-          <option *ngFor="let pessoa of pessoas" value="{{pessoa.id}}">{{pessoa?.nome}}</option>
+      <div class="form-group col-md-6" formGroupName="pessoa">
+        <label for="selectCategoria">Pessoa</label>
+        <select class="form-control" name="pessoa" required>
+          <option selected>{{formulario.get('pessoa.nome').value}}</option>
+          <option *ngFor="let pessoa of pessoas" value="{{pessoa.id}}">{{pessoa.nome}}</option>
         </select>
       </div>
-
     </div>
 
     <div class="form-group">
       <label>Observação</label>
-      <textarea class="form-control" rows="3" name="observacao" [(ngModel)]="lancamento.observacao"></textarea>
+      <textarea class="form-control" rows="3" name="observacao" formControlName="observacao"></textarea>
     </div>
 
     <div class="col">
-      <button type="submit" class="btn btn-outline-primary">Salvar</button>
+      <button type="submit" class="btn btn-outline-primary" [disabled]="formulario.invalid">Salvar</button>
       &nbsp;
-      <a (click)="novo(lancamentoForm)" type="button" class="btn btn-outline-secondary">Novo</a>
+      <a (click)="novo()" type="button" class="btn btn-outline-secondary">Novo</a>
       &nbsp;
       <a routerLink="/lancamentos">Voltar para a pesquisa</a>      
     </div>

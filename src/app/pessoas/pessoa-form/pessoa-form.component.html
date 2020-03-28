@@ -9,7 +9,7 @@
 
     <mat-grid-list cols="1" rowHeight="2:1">
 
-    <form #pessoaForm="ngForm" (ngSubmit)="consultar()" class="form">
+    <form #pessoaForm="ngForm" (ngSubmit)="consultar()" class="form form-categoria">
 
         <div class="container-flex">
             <mat-form-field appearance="outline">
@@ -59,9 +59,9 @@
 			    <ng-container matColumnDef="star" stickyEnd>
 			      <th mat-header-cell *matHeaderCellDef></th>
 			      <td mat-cell *matCellDef="let element">
-                      <a type="submit" class="btn btn-defualt btn-sm" [routerLink]="['/pessoas', element.id]" data-toggle="tooltip" title="Editar">
+                      <button type="submit" class="btn btn-defualt btn-sm" [routerLink]="['/pessoas', element.id]" data-toggle="tooltip" title="Editar">
                           <img class="open-iconic" src="../assets/icones/open-iconic/svg/pencil.svg" alt="Editar">
-                      </a>
+                      </button>
                       <button type="submit" class="btn btn-defualt btn-sm" (click)="confirmExclusao(element.id)" data-toggle="tooltip" title="Excluir"><img class="open-iconic" src="../assets/icones/open-iconic/svg/trash.svg" alt="Excluir"></button>
 			      </td>
 			    </ng-container>

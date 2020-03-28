@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LancamentoFormComponent } from '../lancamentos/lancamento-form/lancamento-form.component';
 import { LancamentoCadastroComponent } from '../lancamentos/lancamento-cadastro/lancamento-cadastro.component';
@@ -60,6 +60,7 @@ import { LancamentosRoutingModule } from "src/app/lancamentos/lancamentos-routin
     CommonModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
 
     A11yModule,
     CdkStepperModule,

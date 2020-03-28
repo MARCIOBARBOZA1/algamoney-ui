@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialogModule, MatButtonModule } from '@angular/material';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
-
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ErrorHandlerService } from "src/app/core/error-handler.service";
 
@@ -11,8 +11,13 @@ import { PessoaService } from '../pessoas/pessoa.service';
 import { LancamentoService } from '../lancamentos/lancamento.service';
 import { DialogComponent } from "src/app/shared/dialog/dialog.component";
 import { RouterModule } from "@angular/router";
+import { HttpClientModule } from '@angular/common/http'
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 import { Title } from '@angular/platform-browser';
+import { AuthService } from "src/app/seguranca/auth.service";
+import { MoneyHttp } from "src/app/seguranca/money-http";
+import { CategoriaService } from "src/app/categorias/categoria.service";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 registerLocaleData(localePt);
 
@@ -21,6 +26,9 @@ registerLocaleData(localePt);
   imports: [
     CommonModule,
     RouterModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
 
     MatDialogModule,
     MatButtonModule
@@ -33,7 +41,11 @@ registerLocaleData(localePt);
   providers: [
     LancamentoService,
     PessoaService,
+    CategoriaService,
     ErrorHandlerService,
+    AuthService,
+    MoneyHttp,
+    JwtHelperService,
     
     Title,
 

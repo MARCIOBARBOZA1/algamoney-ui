@@ -50,6 +50,7 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from "@angular/material/dialog";
 import { PessoaFormComponent } from './pessoa-form/pessoa-form.component';
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
 import { RouterModule } from "@angular/router";
+import { PessoasRoutingModule } from "src/app/pessoas/pessoas-routing.module";
 
 @NgModule({
   declarations: [
@@ -105,8 +106,9 @@ import { RouterModule } from "@angular/router";
     PortalModule,
     ScrollingModule,
 
-    SharedModule
-    
+    SharedModule,
+    PessoasRoutingModule
+
   ],
   exports: [],
   providers: [

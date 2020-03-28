@@ -1,7 +1,7 @@
 <div class="container">
 	<br><br><br><br>
 	<form #pessoaForm="ngForm" (ngSubmit)="salvar(pessoaForm)">
-		<h2>Nova Pessoa</h2>
+		<h2>{{editando ? 'Edição de' : 'Novo'}} Pessoa</h2>
 
 		<div class="form-group">
 			<label>Nome</label>
@@ -10,7 +10,7 @@
 		<div class="row">
 			<div class="form-group  col-md-6">
 				<label>Logradouro</label>
-				<input class="form-control" name="logradouro" [(ngModel)]="pessoa.endereco.logradouro" type="text">			
+				<input class="form-control" name="logradouro" [(ngModel)]="pessoa.endereco.logradouro" type="text">
 			</div>
 			<div class="form-group  col-md-6">
 				<label>Numero</label>
@@ -45,9 +45,9 @@
 		<div class="col">
 			<button type="submit" class="btn btn-outline-primary">Salvar</button>
 			&nbsp;
-			<a routerLink="/lancamentos">Novo</a>
+			<a type="button" class="btn btn-outline-primary" routerLink="/pessoas/novo">Novo</a>
 			&nbsp;
-			<a routerLink="/pessoas">Voltar para a pesquisa</a>      
+			<a type="button" class="btn btn-outline-primary" routerLink="/pessoas">Voltar</a>
 		</div>
 
 	</form>
