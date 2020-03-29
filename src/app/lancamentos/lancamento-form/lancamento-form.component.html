@@ -39,11 +39,8 @@
     </form>
     </mat-grid-list>
     
-	    <div class="mat-app-background basic-container">
-			<app-mat-paginator [length]="totalRegistros" [pageSize]="filtro.itensPorPagina" showFirstLastButtons>loading</app-mat-paginator>
-		</div>
-		<div class="container-table mat-elevation-z8">
-		    <table mat-table [dataSource]="lancamentos" matSort>
+		<div class="mat-elevation-z8">
+		    <table mat-table [dataSource]="lancamentos">
 		
 			    <ng-container matColumnDef="pessoa" sticky>
 			        <th mat-header-cell *matHeaderCellDef> Nome </th>
@@ -89,6 +86,9 @@
 			    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 			    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 		    </table>
+		    <div class="mat-app-background basic-container">
+				<app-mat-paginator [length]="totalRegistros" [pageSize]="filtro.itensPorPagina" showFirstLastButtons>loading</app-mat-paginator>
+			</div>
 		</div>
    
     <div class="col-sm-4">

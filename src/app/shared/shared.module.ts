@@ -18,7 +18,6 @@ import { DialogComponent } from './dialog/dialog.component';
   MatPaginatorComponent,
   AlertComponent,
   DialogComponent
-
 ],
 imports: [
   CommonModule,
