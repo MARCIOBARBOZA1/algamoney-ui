@@ -1,16 +1,14 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { LancamentoService, LancamentoFiltro } from '../lancamento.service';
 
-import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from "src/app/shared/dialog/dialog.component";
-import { config } from "rxjs";
 
 import { ErrorHandlerService } from './../../core/error-handler.service';
 import { AuthService } from "src/app/seguranca/auth.service";

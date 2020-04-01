@@ -41,6 +41,8 @@ export class PessoaCadastroComponent implements OnInit {
            
   }
   
+  displayedColumns: string[] = ['nome', 'email', 'telefone', 'star'];
+  
   get editando() {
       return Boolean(this.pessoa.id)
   }

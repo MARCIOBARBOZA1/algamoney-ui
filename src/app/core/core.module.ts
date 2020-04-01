@@ -18,6 +18,8 @@ import { AuthService } from "src/app/seguranca/auth.service";
 import { MoneyHttp } from "src/app/seguranca/money-http";
 import { CategoriaService } from "src/app/categorias/categoria.service";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { DashboardService } from "src/app/dashboard/dashboard.service";
+import { RelatoriosService } from "src/app/relatorios/relatorios.service";
 
 registerLocaleData(localePt);
 
@@ -42,6 +44,8 @@ registerLocaleData(localePt);
     LancamentoService,
     PessoaService,
     CategoriaService,
+    DashboardService,
+    RelatoriosService,
     ErrorHandlerService,
     AuthService,
     MoneyHttp,

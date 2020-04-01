@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
+
+<div class="container-fluid">
+    <br><br><br><br>
+    <div>
+        <h2>Relatorio de lancamentos por pessoa</h2>
+    </div>
+	<form #lancamentoForm="ngForm" (ngSubmit)="gerar()">
+		<mat-form-field color="accent" appearance="outline">
+		  <mat-label>Data Vencimento Inicial</mat-label>
+		  <input matInput [matDatepicker]="picker1" name="periodoInicio" [(ngModel)]="periodoInicio">
+		  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+		  <mat-datepicker #picker1></mat-datepicker>
+		</mat-form-field>
+		&nbsp;&nbsp;
+		<mat-form-field color="accent" appearance="outline">
+		  <mat-label>Data Vencimento Inicial</mat-label>
+		  <input matInput [matDatepicker]="picker2"  name="periodoFim" [(ngModel)]="periodoFim">
+		  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+		  <mat-datepicker #picker2 color="primary"></mat-datepicker>
+		</mat-form-field>
+		
+		<div class="col-sm-3">
+	         <button type="submit" class="btn btn-outline-primary">Gerar</button>
+	    </div>
+		
+	</form>
+</div>

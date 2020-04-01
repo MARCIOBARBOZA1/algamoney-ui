@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<div class="container-fluid">
+    <br><br><br><br>
+    <div>
+        <h2>Dashboard</h2>
+    </div>
+    <google-chart #chart
+	   [title]="title"
+	   [type]="type"
+	   [data]="data"
+	   [columnNames]="columnNames"
+	   [options]="options"
+	   [width]="width"
+	   [height]="height">
+	</google-chart>
+       
+</div>
+
