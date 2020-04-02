@@ -59,6 +59,10 @@
       <textarea class="form-control" rows="3" name="observacao" formControlName="observacao"></textarea>
     </div>
 
+    <div style="text-align:left">
+      <app-mat-file-upload accept="image/*,application/*" (complete)="antesUploadAnexo($event);onFileComplete($event)"></app-mat-file-upload>
+	</div>
+    
     <div class="col">
       <button type="submit" class="btn btn-outline-primary" [disabled]="formulario.invalid">Salvar</button>
       &nbsp;

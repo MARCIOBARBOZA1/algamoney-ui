@@ -1,0 +1,38 @@
+<h5>Contato</h5>
+<button mat-raised-button (click)="openDialog()" class="float-right" data-toggle="tooltip" title="Novo Contato">
+	<img class="open-iconic" src="../assets/icones/open-iconic/svg/medical-cross.svg" alt="NovoContato">
+</button><br><br>
+
+<div class="mat-elevation-z8">
+	    <table mat-table [dataSource]="contatos">
+		    <ng-container matColumnDef="nome" sticky>
+		        <th mat-header-cell *matHeaderCellDef> Nome </th>
+		        <td mat-cell *matCellDef="let contato"> {{contato.nome}} </td>
+		    </ng-container>
+	
+		    <ng-container matColumnDef="email">
+		        <th mat-header-cell *matHeaderCellDef> E-mail </th>
+		        <td mat-cell *matCellDef="let contato"> {{contato.email}} </td>
+		    </ng-container>
+		
+		    <ng-container matColumnDef="telefone">
+		        <th mat-header-cell *matHeaderCellDef> Telefone </th>
+		        <td mat-cell *matCellDef="let contato"> {{contato.telefone}} </td>
+		    </ng-container>
+		    
+                  <!-- Star Column -->
+		    <ng-container matColumnDef="star" stickyEnd>
+		      <th mat-header-cell *matHeaderCellDef>Acao</th>
+		      <td mat-cell *matCellDef="let contato; let rowIndex = index">
+                     <button mat-button class="btn btn-defualt btn-sm" data-toggle="tooltip" title="Editar">
+                        <img class="open-iconic" src="../assets/icones/open-iconic/svg/pencil.svg" alt="Editar">
+                     </button>
+                     <button mat-button class="btn btn-defualt btn-sm" data-toggle="tooltip" title="Excluir" (click)="removerContato(rowIndex)">
+                     	<img class="open-iconic" src="../assets/icones/open-iconic/svg/trash.svg" alt="Excluir">
+                     </button>
+		      </td>
+		    </ng-container>
+		    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+	    	<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+		</table>
+</div>

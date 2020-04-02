@@ -1,6 +1,6 @@
 import { Title } from '@angular/platform-browser';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -29,6 +29,9 @@ export class LancamentoCadastroComponent implements OnInit {
   //lancamento = new Lancamento();
   formulario: FormGroup;
   //uploadEmAndamento = false;
+  
+  @Input() onBeforeSend = new EventEmitter<string>();
+
 
   constructor(
     private categoriaService: CategoriaService,
@@ -55,7 +58,7 @@ export class LancamentoCadastroComponent implements OnInit {
     this.carregarCategorias();
     this.carregarPessoas();
   }
-
+  
   configurarFormulario() {
       this.formulario = this.formBuilder.group({
         id: [],
@@ -84,6 +87,19 @@ export class LancamentoCadastroComponent implements OnInit {
       return (input: FormControl) => {
         return (!input.value || input.value.length >= valor) ? null : { tamanhoMinimo: { tamanho: valor } };
       };
+  }
+  
+  antesUploadAnexo(event) {
+      console.log('chegou aqui10 mat-file-upload');
+      event.xhr.setRequestHeader('Autorization', 'Bearer ' + localStorage.getItem('token'));
+  }
+  
+  get urlUploadAnexo() {
+      return this.lancamentoService.urlUploadAnexo();
+  }
+
+  onFileComplete(data: any) {
+      console.log(data); // We just print out data bubbled up from event emitter.
   }
 
   get editando() {

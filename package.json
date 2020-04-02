@@ -42,6 +42,7 @@
     "jquery": "^3.4.1",
     "minimist": "^1.2.5",
     "moment": "^2.24.0",
+    "ng2-file-upload": "^1.4.0",
     "ng2-toasty": "^4.0.3",
     "ngx-bootstrap": "^5.2.0",
     "ngx-pagination": "^5.0.0",

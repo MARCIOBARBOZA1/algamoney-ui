@@ -1,14 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatDialog } from "@angular/material/dialog";
-import { NgForm } from "@angular/forms";
+import { NgForm, FormControl } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { ErrorHandlerService } from "src/app/core/error-handler.service";
 
 import { PessoaService } from "src/app/pessoas/pessoa.service";
-import { Pessoa } from "src/app/core/model";
+import { Pessoa, Contato } from "src/app/core/model";
 import { Title } from "@angular/platform-browser";
+import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
+export interface DialogData {
+    nome: string;
+    email: string;
+    telefone: string;
+}
 
 @Component({
   selector: 'app-pessoa-cadastro',
@@ -18,15 +24,17 @@ import { Title } from "@angular/platform-browser";
 export class PessoaCadastroComponent implements OnInit {
 
   pessoa= new Pessoa();
-
+  nome: string;
+  email: string;
+  telefone: string;
+  
   constructor(
       private pessoaService: PessoaService,
       private errorHandler: ErrorHandlerService,
       private _snackBar: MatSnackBar,
-      private dialog: MatDialog,
       private route: ActivatedRoute,
       private router: Router,
-      private title: Title
+      private title: Title,
   ) { }
 
   ngOnInit() {
@@ -40,8 +48,6 @@ export class PessoaCadastroComponent implements OnInit {
       }
            
   }
-  
-  displayedColumns: string[] = ['nome', 'email', 'telefone', 'star'];
   
   get editando() {
       return Boolean(this.pessoa.id)
@@ -106,4 +112,19 @@ export class PessoaCadastroComponent implements OnInit {
       this.title.setTitle(`Edição de pessoa: ${this.pessoa.nome}`);
   }
  
+}
+
+@Component({
+    selector: 'pessoa-contato',
+    templateUrl: './pessoa-contato.html',
+  })
+  export class PessoaContato {
+
+    constructor(
+      public dialogRef: MatDialogRef<PessoaContato>,
+      @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+
 }

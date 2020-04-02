@@ -1,0 +1,16 @@
+<mat-form-field>
+  <mat-label>Nome</mat-label>
+  <input matInput [(ngModel)]="data.nome" required>
+</mat-form-field>
+<mat-form-field>
+  <mat-label>E-mail</mat-label>
+  <input matInput [(ngModel)]="data.email" required>
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Telefone</mat-label>
+  <input matInput [(ngModel)]="data.telefone" required>
+</mat-form-field>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="data.nome" type="submit" cdkFocusInitial>Confirmar</button>
+</div>

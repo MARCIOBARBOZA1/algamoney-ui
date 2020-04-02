@@ -48,20 +48,29 @@ import {MatTreeModule} from '@angular/material/tree';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from "@angular/material/dialog";
 
 import { PessoaFormComponent } from './pessoa-form/pessoa-form.component';
-import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
+import { PessoaCadastroComponent, PessoaContato } from './pessoa-cadastro/pessoa-cadastro.component';
 import { RouterModule } from "@angular/router";
 import { PessoasRoutingModule } from "src/app/pessoas/pessoas-routing.module";
+import { MAT_LABEL_GLOBAL_OPTIONS } from "@angular/material/core";
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
+import { PessoaCadastroContatoComponent } from './pessoa-cadastro-contato/pessoa-cadastro-contato.component';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { BrowserModule } from "@angular/platform-browser";
 
 @NgModule({
   declarations: [
     PessoaFormComponent,
-    PessoaCadastroComponent
+    PessoaCadastroComponent,
+    PessoaContato,
+    PessoaCadastroContatoComponent
   ],
   imports: [
     CommonModule,
+    BrowserModule,
     HttpClientModule,
     FormsModule,
     RouterModule,
+    BrowserAnimationsModule,
     
     A11yModule,
     CdkStepperModule,
@@ -112,7 +121,9 @@ import { PessoasRoutingModule } from "src/app/pessoas/pessoas-routing.module";
   ],
   exports: [],
   providers: [
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
+    {provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: {float: 'always'}},
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'always'}}
   ]
 })
 export class PessoasModule { }
