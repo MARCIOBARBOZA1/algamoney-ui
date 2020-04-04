@@ -11,10 +11,15 @@
 	    </div>
 	    <input type="email" class="form-control form-control-lg" name="usuario" placeholder="usuario" ngModel required #usuario>
 	  </div>
+	  
 	  <br>
-	  <div class="form-group col-md-6">
+	  
+	  <div class="input-group col-md-6">
     	<input type="password" class="form-control form-control-lg" name="senha" ngModel required #senha>
 	  </div>
+	  
+	  <br>
+	  
 	  <div class="form-group col-md-4">
          <button type="submit" [disabled]="!loginForm.valid" class="btn btn-success rounded-pill" (click)="login(usuario.value, senha.value); senha.value =''">Entrar</button>
 	  </div>

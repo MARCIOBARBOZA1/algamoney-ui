@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../shared/shared.module';
@@ -48,7 +48,7 @@ import {MatTreeModule} from '@angular/material/tree';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from "@angular/material/dialog";
 
 import { PessoaFormComponent } from './pessoa-form/pessoa-form.component';
-import { PessoaCadastroComponent, PessoaContato } from './pessoa-cadastro/pessoa-cadastro.component';
+import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
 import { RouterModule } from "@angular/router";
 import { PessoasRoutingModule } from "src/app/pessoas/pessoas-routing.module";
 import { MAT_LABEL_GLOBAL_OPTIONS } from "@angular/material/core";
@@ -61,7 +61,6 @@ import { BrowserModule } from "@angular/platform-browser";
   declarations: [
     PessoaFormComponent,
     PessoaCadastroComponent,
-    PessoaContato,
     PessoaCadastroContatoComponent
   ],
   imports: [
@@ -71,6 +70,7 @@ import { BrowserModule } from "@angular/platform-browser";
     FormsModule,
     RouterModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     
     A11yModule,
     CdkStepperModule,
@@ -120,6 +120,7 @@ import { BrowserModule } from "@angular/platform-browser";
 
   ],
   exports: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
     {provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: {float: 'always'}},

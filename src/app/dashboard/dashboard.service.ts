@@ -17,7 +17,6 @@ constructor(private http: HttpClient) {
   }
 
   async lancamentosPorCategoria(): Promise<Array<any>> {
-      console.log('ssssssss');
       return this.http.get(`${this.tmpUrl}/estatisticas/por-categoria`)
           .toPromise()
           .then(response => response as Array<any>);

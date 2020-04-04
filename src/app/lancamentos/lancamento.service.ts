@@ -1,4 +1,4 @@
-import { HttpParams } from '@angular/common/http'; // URLSearchParams
+import { HttpParams, HttpHeaders } from '@angular/common/http'; // URLSearchParams
 import { Injectable, Input, Directive } from '@angular/core';
 
 import * as moment from 'moment';
@@ -37,9 +37,17 @@ export class LancamentoService {
       return `${this.tmpUrl}/anexo`;
   }
 
+  antesUploadAnexo() {
+      const bearer = localStorage.getItem('token');
+      const headers = new HttpHeaders()
+      .append('Authorization', 'Bearer ' + bearer);
+      console.log(headers);
+      return headers;
+  }
+
   async consultar(filtro: LancamentoFiltro): Promise<any> {
     
-      let params = new HttpParams({
+    let params = new HttpParams({
           fromObject: {
               page: filtro.pagina.toString(),
               size: filtro.itensPorPagina.toString()

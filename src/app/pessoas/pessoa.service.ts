@@ -4,11 +4,11 @@ import { HttpParams, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 
 import { ErrorHandlerService } from '../core/error-handler.service';
-import { Pessoa } from "src/app/core/model";
+import { Pessoa, Estado, Cidade } from "src/app/core/model";
 import { MoneyHttp } from "src/app/seguranca/money-http";
 import { environment } from "src/environments/environment";
 
-@Directive()
+//@Directive()
 export class PessoaFiltro {
   nome: string;
   ativo: boolean;
@@ -35,13 +35,11 @@ export class PessoaService {
   }
   
   async consultar(filtro: PessoaFiltro): Promise<any> {
-    let params = new HttpParams({
-        fromObject: {
-            page: filtro.pagina.toString(),
-            size: filtro.itensPorPagina.toString()
-        }
-    });
-
+    let params = new HttpParams()
+    
+    params = params.append('page', filtro.pagina.toString());
+    params = params.append('size', filtro.itensPorPagina.toString());
+    
     if (filtro.nome) {
         params = params.append('nome', filtro.nome);
     }
@@ -67,11 +65,25 @@ export class PessoaService {
 
   }
 
+  listarTodas(): Promise<any> {
+      return this.http.get<any>(this.pessoasUrl)
+        .toPromise();
+  }
+  
   excluir(id: String): Promise<void> {
       return this.http.delete(`${this.pessoasUrl}/${id}`)
       .toPromise()
       .then(() => null)
       .catch(erro => this.errorHandler.handle(erro));
+  }
+  
+  mudarStatus(id: String, ativo: boolean): Promise<void> {
+      const headers = new HttpHeaders()
+          .append('Content-Type', 'application/json');  
+      
+      return this.http.put(`${this.pessoasUrl}/${id}/ativo`, ativo, { headers } )
+      .toPromise()
+      .then(() => null) 
   }
   
   adicionar(pessoa: Pessoa): Promise<Pessoa> {
@@ -93,19 +105,18 @@ export class PessoaService {
       .toPromise();
   }
       
-  listarTodas(): Promise<any> {
-
-      return this.http.get<any>(this.pessoasUrl)
-        .toPromise();
+  listarEstados(): Promise<Estado[]> {
+      return this.http.get<any>(this.estadosUrl)
+          .toPromise();
   }
-  
-  mudarStatus(id: String, ativo: boolean): Promise<void> {
-      const headers = new HttpHeaders()
-          .append('Content-Type', 'application/json');  
-      
-      return this.http.put(`${this.pessoasUrl}/${id}/ativo`, ativo, { headers } )
-      .toPromise()
-      .then(() => null) 
+
+  pesquisarCidades(estado): Promise<Cidade[]> {
+      console.log('Chegou aqui')
+      console.log(estado);
+      let params = new HttpParams();
+      params = params.set('estado', estado);
+      return this.http.get<any>(this.cidadesUrl, {params})
+      .toPromise();
   }
   
 }

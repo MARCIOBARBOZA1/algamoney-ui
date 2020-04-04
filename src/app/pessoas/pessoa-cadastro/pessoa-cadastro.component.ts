@@ -1,20 +1,12 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
+
+import { ErrorHandlerService } from './../../core/error-handler.service';
+import { PessoaService } from './../pessoa.service';
+import { Pessoa, Contato } from './../../core/model';
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { NgForm, FormControl } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-
-import { ErrorHandlerService } from "src/app/core/error-handler.service";
-
-import { PessoaService } from "src/app/pessoas/pessoa.service";
-import { Pessoa, Contato } from "src/app/core/model";
-import { Title } from "@angular/platform-browser";
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-
-export interface DialogData {
-    nome: string;
-    email: string;
-    telefone: string;
-}
 
 @Component({
   selector: 'app-pessoa-cadastro',
@@ -23,108 +15,114 @@ export interface DialogData {
 })
 export class PessoaCadastroComponent implements OnInit {
 
-  pessoa= new Pessoa();
-  nome: string;
-  email: string;
-  telefone: string;
-  
+  pessoa = new Pessoa();
+  estados: any[];
+  cidades: any[];
+  @Input() estadoSelecionado: number;
+
   constructor(
-      private pessoaService: PessoaService,
-      private errorHandler: ErrorHandlerService,
-      private _snackBar: MatSnackBar,
-      private route: ActivatedRoute,
-      private router: Router,
-      private title: Title,
+    private pessoaService: PessoaService,
+    private errorHandler: ErrorHandlerService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private _snackBar: MatSnackBar,
+    private title: Title
   ) { }
 
   ngOnInit() {
-      const idPessoa = this.route.snapshot.params['id'];
-      
-      this.title.setTitle('Nova Pessoa');
-      
-      if (idPessoa) {
-          this.title.setTitle('Edição de Pessoa');
-          this.carregarPessoa(idPessoa);
-      }
-           
-  }
-  
-  get editando() {
-      return Boolean(this.pessoa.id)
-  }
-  
-  carregarPessoa(id: string) {
-      this.pessoaService.buscarPorCodigo(id)
-      .then(pessoa => {
-          this.pessoa = pessoa;
-          this.atualizarTituloEdicao();
-      })
-      .catch(erro => this.errorHandler.handle(erro));
-  }
-  
-  salvar(form: NgForm) {
-      if(this.editando) {
-          this.atualizarPessoa(form);
-      } else {
-          this.adicionarPessoa(form);
-      }
-  }
-  
-  adicionarPessoa(form: NgForm) {
+    const codigoPessoa = this.route.snapshot.params['id'];
 
-      this.pessoaService.adicionar(this.pessoa)
-      .then(pessoaAdicionado => {
-          this._snackBar.open('Cadastro realizado com sucesso!','', {
-              duration: 2000
-          });
-          //form.reset();
-          //this.pessoa = new Pessoa();
-          this.router.navigate(['/pessoas', pessoaAdicionado.id]);
-      })
-      .catch(erro => this.errorHandler.handle(erro));
+    this.title.setTitle('Nova pessoa');
 
-  }
-  
-  atualizarPessoa(form: NgForm) {
-      this.pessoaService.atualizar(this.pessoa)
-      .then(pessoa => {
-          this.pessoa = pessoa;
-          this._snackBar.open('Pessoa alterada com sucesso!','', {
-              duration: 2000
-          });
-          this.atualizarTituloEdicao();
-      })
-      .catch(erro => this.errorHandler.handle(erro));
-      
-  }
-  
-  novo(form: NgForm) {
-      form.reset();
-      
-      setTimeout(function() {
-          this.pessoa = new Pessoa();
-        }.bind(this), 1);
-      
-      this.router.navigate(['/pessoas/novo']);
-  }
-    
-  atualizarTituloEdicao() {
-      this.title.setTitle(`Edição de pessoa: ${this.pessoa.nome}`);
-  }
- 
-}
+    this.carregarEstados();
 
-@Component({
-    selector: 'pessoa-contato',
-    templateUrl: './pessoa-contato.html',
-  })
-  export class PessoaContato {
-
-    constructor(
-      public dialogRef: MatDialogRef<PessoaContato>,
-      @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-    onNoClick(): void {
-      this.dialogRef.close();
+    if (codigoPessoa) {
+      this.carregarPessoa(codigoPessoa);
     }
+  }
+
+  carregarEstados() {
+    this.pessoaService.listarEstados().then(lista => {
+      this.estados = lista.map(uf => ({ label: uf.nome, value: uf.id }));
+      console.log(this.estados = lista.map(uf => ({ label: uf.nome, value: uf.id })))
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  carregarCidades() {
+    this.pessoaService.pesquisarCidades(this.estadoSelecionado)
+    .then(lista => {
+      this.cidades = lista.map(c => ({ label: c.nome, value: c.id }));
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  get editando() {
+    return Boolean(this.pessoa.id)
+  }
+
+  carregarPessoa(id: string) {
+    this.pessoaService.buscarPorCodigo(id)
+      .then(pessoa => {
+        this.pessoa = pessoa;
+
+        this.estadoSelecionado = (this.pessoa.endereco.cidade) ?
+                this.pessoa.endereco.cidade.estado.id : null;
+
+        if (this.estadoSelecionado) {
+          this.carregarCidades();
+        }
+
+        this.atualizarTituloEdicao();
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  salvar(form: FormControl) {
+    if (this.editando) {
+      this.atualizarPessoa(form);
+    } else {
+      this.adicionarPessoa(form);
+    }
+  }
+
+  adicionarPessoa(form: FormControl) {
+    this.pessoaService.adicionar(this.pessoa)
+      .then(pessoaAdicionada => {
+          this._snackBar.open('Lançamento adicionado com sucesso!','', {
+              duration: 2000
+          });
+        this.router.navigate(['/pessoas', pessoaAdicionada.id]);
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  atualizarPessoa(form: FormControl) {
+    this.pessoaService.atualizar(this.pessoa)
+      .then(pessoa => {
+        this.pessoa = pessoa;
+
+        this._snackBar.open('Lançamento alterado com sucesso!','', {
+            duration: 2000
+        });
+        
+        this.atualizarTituloEdicao();
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  nova(form: FormControl) {
+    form.reset();
+
+    setTimeout(function() {
+      this.pessoa = new Pessoa();
+    }.bind(this), 1);
+
+    this.router.navigate(['/pessoas/nova']);
+  }
+
+  atualizarTituloEdicao() {
+    this.title.setTitle(`Edição de pessoa: ${this.pessoa.nome}`);
+  }
 
 }

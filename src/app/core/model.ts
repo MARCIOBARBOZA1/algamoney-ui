@@ -1,11 +1,21 @@
+export class Estado {
+  id: number;
+  nome: string;
+}
+
+export class Cidade {
+  id: number;
+  nome: string;
+  estado = new Estado();
+}
+
 export class Endereco {
   logradouro: string;
   numero: string;
   complemento: string;
   bairro: string;
   cep: string;
-  cidade: string;
-  estado: string;
+  cidade = new Cidade();
 }
 
 export class Contato {
@@ -13,6 +23,17 @@ export class Contato {
   nome: string;
   email: string;
   telefone: string;
+
+  constructor(
+     id?: string,
+     nome?: string,
+     email?: string,
+     telefone?: string) {
+      this.id = id;
+      this.nome = nome;
+      this.email = email;
+      this.telefone = telefone;
+  }
 }
 
 export class Pessoa {
@@ -37,4 +58,6 @@ export class Lancamento {
     observacao: string;
     pessoa = new Pessoa();
     categoria = new Categoria();
+    anexo: string;
+    urlAnexo: string;
 }

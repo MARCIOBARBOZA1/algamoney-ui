@@ -50,6 +50,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from "@angular/material/dialog";
 import { LancamentosRoutingModule } from "src/app/lancamentos/lancamentos-routing.module";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -58,6 +60,8 @@ import { LancamentosRoutingModule } from "src/app/lancamentos/lancamentos-routin
   ],
   imports: [
     CommonModule,
+    BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,

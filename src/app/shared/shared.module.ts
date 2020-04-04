@@ -35,7 +35,7 @@ imports: [
   MatDialogModule,
   BrowserAnimationsModule,
   MatIconModule,
-  MatProgressBarModule
+  MatProgressBarModule,
 ],
 exports: [
   PaginationModule,
@@ -54,8 +54,6 @@ providers: [
   },
   {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
 ],
-entryComponents: [
-  DialogComponent
-]
+
 })
 export class SharedModule { }

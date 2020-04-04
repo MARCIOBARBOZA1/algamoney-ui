@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { HttpClient, HttpResponse, HttpRequest, 
-         HttpEventType, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+         HttpEventType, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { of } from 'rxjs/observable/of';
 import { catchError, last, map, tap } from 'rxjs/operators';
@@ -23,33 +23,31 @@ import { LancamentoService } from "src/app/lancamentos/lancamento.service";
 export class MatFileUploadComponent implements OnInit {
     
     
-      //@Input() onBeforeSend = new EventEmitter<string>();
-      /** Link text */
       @Input() text = 'Upload';
       /** Name used in form which will be sent in HTTP request. */
       @Input() param = 'file';
+      @Input() param2 = this.lancamentoService.antesUploadAnexo();
       /** Target URL for file uploading. */
+      @Input() target = 'https://file.io';
       //@Input() target = 'http://localhost:8080/lancamentos/anexo';
-      @Input() target = this.lancamentoService.urlUploadAnexo();
+      //@Input() target = this.lancamentoService.urlUploadAnexo();
       /** File extension that accepted, same as 'accept' of <input type="file" />. 
           By the default, it's set to 'image/*'. */
       @Input() accept = 'image/*';
+      
       /** Allow you to add handler after its completion. Bubble up response text from remote. */
       @Output() complete = new EventEmitter<string>();
 
       public files: Array<FileUploadModel> = [];
 
-      constructor(private _http: HttpClient, private lancamentoService: LancamentoService) { }
+      constructor(
+              private lancamentoService: LancamentoService,
+              private _http: HttpClient,
+      ) { }
 
       ngOnInit() {
-
       }
       
-//      antesUploadAnexo(event) {
-//          console.log('chegou aqui10 mat-file-upload');
-//          event.xhr.setRequestHeader('Autorization', 'Bearer ' + localStorage.getItem('token'));
-//      }
-
       onClick() {
             const fileUpload = document.getElementById('fileUpload') as HTMLInputElement;
             fileUpload.onchange = () => {
@@ -76,23 +74,17 @@ export class MatFileUploadComponent implements OnInit {
       private uploadFile(file: FileUploadModel) {
             const fd = new FormData();
             fd.append(this.param, file.data);
-            console.log('param:');
-            console.log(this.param);
-            console.log('file data:');
-            console.log(file.data);
-            console.log('fd');
             console.log(fd);
-            console.log('POST target e fd:');
-            console.log('POST', this.target, fd);
-            console.log('target:');
-            console.log(this.target);
-
+            console.log(file.data);
+            console.log(this.param);
+            console.log(this.param2);
+            
             const req = new HttpRequest('POST', this.target, fd, {
                   reportProgress: true
             });
             
             console.log(req);
-
+            
             file.inProgress = true;
             file.sub = this._http.request(req).pipe(
                   map(event => {

@@ -60,7 +60,7 @@
     </div>
 
     <div style="text-align:left">
-      <app-mat-file-upload accept="image/*,application/*" (complete)="antesUploadAnexo($event);onFileComplete($event)"></app-mat-file-upload>
+      <app-mat-file-upload accept="image/*,application/*" (param)="antesUploadAnexo($event)" (complete)="onFileComplete($event)"></app-mat-file-upload>
 	</div>
     
     <div class="col">

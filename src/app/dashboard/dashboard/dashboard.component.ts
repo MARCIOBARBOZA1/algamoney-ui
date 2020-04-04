@@ -15,7 +15,8 @@ export class DashboardComponent implements OnInit {
 
   title = 'Por Categoria';
   type = 'PieChart';
-  data: Array<Array<string | number>>; 
+  //data: Array<Array<string | number>>;
+  data: any = [[]]
   columnNames= [];
   options = {    
   };

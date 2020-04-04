@@ -28,11 +28,7 @@ export class LancamentoCadastroComponent implements OnInit {
   pessoas = [];
   //lancamento = new Lancamento();
   formulario: FormGroup;
-  //uploadEmAndamento = false;
   
-  @Input() onBeforeSend = new EventEmitter<string>();
-
-
   constructor(
     private categoriaService: CategoriaService,
     private pessoaService: PessoaService,
@@ -57,6 +53,7 @@ export class LancamentoCadastroComponent implements OnInit {
     }
     this.carregarCategorias();
     this.carregarPessoas();
+    
   }
   
   configurarFormulario() {
@@ -75,7 +72,9 @@ export class LancamentoCadastroComponent implements OnInit {
           id: [ null, Validators.required ],
           nome: []
         }),
-        observacao: []
+        observacao: [],
+        anexo: [],
+        urlAnexo: []
       });
     }
 
@@ -99,6 +98,7 @@ export class LancamentoCadastroComponent implements OnInit {
   }
 
   onFileComplete(data: any) {
+      console.log('chegou aqui');
       console.log(data); // We just print out data bubbled up from event emitter.
   }
 
@@ -180,4 +180,6 @@ export class LancamentoCadastroComponent implements OnInit {
   atualizarTituloEdicao() {
     this.title.setTitle(`Edição de lançamento: ${this.formulario.get('descricao').value}`);
   }
+
 }
+

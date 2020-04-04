@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Contato } from "src/app/core/model";
-import { PessoaContato } from "src/app/pessoas/pessoa-cadastro/pessoa-cadastro.component";
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Contato, Pessoa } from "src/app/core/model";
 import { FormControl } from "@angular/forms/forms";
 import { MatDialog } from "@angular/material/dialog";
+import { MatTable } from "@angular/material/table";
 
 @Component({
   selector: 'app-pessoa-cadastro-contato',
@@ -14,6 +14,7 @@ export class PessoaCadastroContatoComponent implements OnInit {
   @Input() contatos: Array<Contato>;
   contato: Contato;
   contatoIndex: number;
+  pessoa = new Pessoa();
   
   constructor(private dialog: MatDialog) { }
 
@@ -21,11 +22,14 @@ export class PessoaCadastroContatoComponent implements OnInit {
   }
   
   displayedColumns: string[] = ['nome', 'email', 'telefone', 'star'];
+  
+  @ViewChild('contatosTable') private contatosTable: MatTable<Contato>;
 
   openDialog(): void {
-      const dialogRef = this.dialog.open(PessoaContato, {
+      const dialogRef = this.dialog.open(PessoaCadastroContatoComponent, {
         width: '300px',
-        data: {data: this.contato = new Contato()}
+        //data: {data: this.contato = new Contato()}
+        data: this.contato = new Contato()
       });
       
 
@@ -33,14 +37,21 @@ export class PessoaCadastroContatoComponent implements OnInit {
         console.log('The dialog was closed');
         console.log(this.contato)
         this.contato = result;
+        this.contatos.push(this.contato);
+        this.contatosTable.renderRows()
       });
   }
 
   confirmarContato(frm: FormControl) {
-      console.log('Confirmar Contato');
-      this.contatos.push(this.contato);
+      //this.contatos.push(this.contato);
+      this.pessoa.contatos.push(this.clonarContato(this.contato));
 
       frm.reset();
+  }
+  
+  clonarContato(contato: Contato): Contato {
+      return new Contato(contato.id,
+        contato.nome, contato.email, contato.telefone);
   }
   
   removerContato(index: number) {
