@@ -1,6 +1,6 @@
 <div class="container">
 	<br><br><br><br>
-	<form #pessoaForm="ngForm">
+	<form #pessoaForm="ngForm" (ngSubmit)="pessoaForm">
 		<h2>{{editando ? 'Edição de' : 'Novo'}} Pessoa</h2>
 
 		<div class="form-group">
@@ -35,7 +35,7 @@
 		<div class="row">
 		    <div class="form-group col-md-6" formGroup="estado">
 		        <label for="nome">Estado</label>
-		        <select class="form-control" name="estado" (change)="carregarCidades()" required>
+		        <select class="form-control" name="estado" (change)="carregarCidades($event.target.value)" required>
 		          <option selected>{{pessoa.endereco.cidade.estado.nome}} </option>
 		          <option *ngFor="let estado of estados" value="{{estado.value}}">{{estado.label}}</option>
 		        </select>
@@ -52,7 +52,7 @@
 	    </div>
 	    
 		<mat-card>
-			<app-pessoa-cadastro-contato [contatos]="pessoa.contatos"></app-pessoa-cadastro-contato>			
+			<app-pessoa-contato-form [contatos]="pessoa.contatos"></app-pessoa-contato-form>			
 		</mat-card>
 		
 		<div class="col">

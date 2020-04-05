@@ -1,7 +1,7 @@
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Form, FormControl } from '@angular/forms';
 
 import { ErrorHandlerService } from './../../core/error-handler.service';
 import { PessoaService } from './../pessoa.service';
@@ -18,7 +18,7 @@ export class PessoaCadastroComponent implements OnInit {
   pessoa = new Pessoa();
   estados: any[];
   cidades: any[];
-  @Input() estadoSelecionado: number;
+  estadoSelecionado: number;
 
   constructor(
     private pessoaService: PessoaService,

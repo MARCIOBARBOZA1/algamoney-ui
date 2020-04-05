@@ -1,0 +1,23 @@
+<div class="container-fluid">
+	<form #contatoForm="ngForm" (ngSubmit)="confirmarContato(contatoForm)">
+		<h2>{{editando ? 'Edição de' : 'Novo'}} Contato</h2>
+
+		<div class="form-group">
+			<label>Nome</label>
+			<input class="form-control" name="nome" type="text" [(ngModel)]="contato.nome" required>			
+		</div>
+		<div class="form-group">
+			<label>Email</label>
+			<input class="form-control" name="email" [(ngModel)]="contato.email" type="email" required>
+		</div>
+		<div class="form-group">
+			<label>Telefone</label>
+			<input class="form-control" name="telefone" [(ngModel)]="contato.telefone" type="text">			
+		</div>
+		
+		<div mat-dialog-actions>
+		  <button mat-button class="btn btn-outline-danger" (click)="onClickNO()" cdkFocusInitial>Cancelar</button>
+		  <button mat-button class="btn btn-outline-success" [mat-dialog-close]="contato" type="submit" cdkFocusInitial>Confirmar</button>
+		</div>
+	</form>
+</div>

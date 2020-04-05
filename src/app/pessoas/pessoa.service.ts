@@ -111,10 +111,12 @@ export class PessoaService {
   }
 
   pesquisarCidades(estado): Promise<Cidade[]> {
-      console.log('Chegou aqui')
+      console.log('Chegou aqui pesquisarCidades')
       console.log(estado);
+      
       let params = new HttpParams();
       params = params.set('estado', estado);
+      
       return this.http.get<any>(this.cidadesUrl, {params})
       .toPromise();
   }

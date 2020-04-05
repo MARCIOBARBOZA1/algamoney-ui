@@ -1,12 +1,9 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable, Input, Directive } from '@angular/core';
 
-import 'rxjs/add/operator/toPromise';
-
-import { environment } from './../../environments/environment';
-import { MoneyHttp } from '../seguranca/money-http'; 
-
 import { ErrorHandlerService } from '../core/error-handler.service';
+import { MoneyHttp } from "src/app/seguranca/money-http";
+import { environment } from "src/environments/environment";
 
 @Directive()
 export class CategoriaFiltro {

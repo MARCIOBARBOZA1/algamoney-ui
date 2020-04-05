@@ -98,7 +98,7 @@ export class LancamentoCadastroComponent implements OnInit {
   }
 
   onFileComplete(data: any) {
-      console.log('chegou aqui');
+      console.log('chegou aqui onFileComplete');
       console.log(data); // We just print out data bubbled up from event emitter.
   }
 

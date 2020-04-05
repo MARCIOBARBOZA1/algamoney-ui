@@ -47,21 +47,23 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from "@angular/material/dialog";
 
-import { PessoaFormComponent } from './pessoa-form/pessoa-form.component';
-import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
 import { RouterModule } from "@angular/router";
 import { PessoasRoutingModule } from "src/app/pessoas/pessoas-routing.module";
 import { MAT_LABEL_GLOBAL_OPTIONS } from "@angular/material/core";
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
-import { PessoaCadastroContatoComponent } from './pessoa-cadastro-contato/pessoa-cadastro-contato.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserModule } from "@angular/platform-browser";
+import { PessoaFormComponent } from "src/app/pessoas/pessoa-form/pessoa-form.component";
+import { PessoaCadastroComponent } from "src/app/pessoas/pessoa-cadastro/pessoa-cadastro.component";
+import { PessoaContatoFormComponent } from "src/app/pessoas/pessoa-contato/pessoa-contato-form/pessoa-contato-form.component";
+import { PessoaContatoCadastroComponent } from "src/app/pessoas/pessoa-contato/pessoa-contato-cadastro/pessoa-contato-cadastro.component";
 
 @NgModule({
   declarations: [
     PessoaFormComponent,
     PessoaCadastroComponent,
-    PessoaCadastroContatoComponent
+    PessoaContatoFormComponent,
+    PessoaContatoCadastroComponent
   ],
   imports: [
     CommonModule,
