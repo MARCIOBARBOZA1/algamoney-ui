@@ -1,6 +1,6 @@
 import { Title } from '@angular/platform-browser';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -98,7 +98,7 @@ export class LancamentoCadastroComponent implements OnInit {
   }
   
   aoTerminarUploadAnexo(event) {
-      const anexo = parse(event.xhr.response);
+      const anexo = JSON.parse(event.xhr.response);
 
       this.formulario.patchValue({
         anexo: anexo.nome,
