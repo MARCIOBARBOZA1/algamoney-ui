@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Contato, Pessoa } from "src/app/core/model";
-import { Form, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from "@angular/material/dialog";
 import { MatTable } from "@angular/material/table";
 

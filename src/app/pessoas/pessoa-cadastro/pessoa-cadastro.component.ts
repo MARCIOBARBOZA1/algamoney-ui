@@ -1,7 +1,7 @@
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit, Input } from '@angular/core';
-import { Form, FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 import { ErrorHandlerService } from './../../core/error-handler.service';
 import { PessoaService } from './../pessoa.service';
@@ -98,6 +98,7 @@ export class PessoaCadastroComponent implements OnInit {
   }
 
   atualizarPessoa(form: FormControl) {
+      console.log('chegou em atualizarPessoa')
     this.pessoaService.atualizar(this.pessoa)
       .then(pessoa => {
         this.pessoa = pessoa;
@@ -106,6 +107,7 @@ export class PessoaCadastroComponent implements OnInit {
             duration: 2000
         });
         
+        console.log(pessoa);
         this.atualizarTituloEdicao();
       })
       .catch(erro => this.errorHandler.handle(erro));

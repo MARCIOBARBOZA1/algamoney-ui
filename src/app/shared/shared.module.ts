@@ -17,6 +17,8 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from "@angular/material/dialog";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatIconModule } from "@angular/material/icon";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { HttpClientModule } from "@angular/common/http";
+import { LancamentosModule } from "src/app/lancamentos/lancamentos.module";
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ imports: [
   BrowserAnimationsModule,
   MatIconModule,
   MatProgressBarModule,
+  HttpClientModule
 ],
 exports: [
   PaginationModule,

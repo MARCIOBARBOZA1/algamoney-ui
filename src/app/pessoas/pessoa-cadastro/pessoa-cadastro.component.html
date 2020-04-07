@@ -1,11 +1,13 @@
 <div class="container">
 	<br><br><br><br>
-	<form #pessoaForm="ngForm" (ngSubmit)="pessoaForm">
+	<form #pessoaForm="ngForm" (ngSubmit)="salvar(pessoaForm)">
 		<h2>{{editando ? 'Edição de' : 'Novo'}} Pessoa</h2>
 
-		<div class="form-group">
-			<label>Nome</label>
-			<input class="form-control" name="nome" type="text" [(ngModel)]="pessoa.nome">			
+		<div class="row">
+			<div class="form-group">
+				<label>Nome</label>
+				<input class="form-control" name="nome" type="text" [(ngModel)]="pessoa.nome">			
+			</div>
 		</div>
 		<div class="row">
 			<div class="form-group  col-md-6">
@@ -33,20 +35,21 @@
 		</div>
 		
 		<div class="row">
-		    <div class="form-group col-md-6" formGroup="estado">
+		    <div class="form-group col-md-6">
 		        <label for="nome">Estado</label>
-		        <select class="form-control" name="estado" (change)="carregarCidades($event.target.value)" required>
+		        <select class="form-control" [(ngModel)]="estadoSelecionado" name="estadoSelecionado" (change)="carregarCidades($event.target.value)" required>
 		          <option selected>{{pessoa.endereco.cidade.estado.nome}} </option>
 		          <option *ngFor="let estado of estados" value="{{estado.value}}">{{estado.label}}</option>
 		        </select>
 		      </div>
 
-		    <div class="form-group col-md-6" formGroup="cidades">
+		    <div class="form-group col-md-6">
 		        <label for="cidade">Cidade</label>
-		        <select class="form-control" name="cidades" required>
+		        <select class="form-control" name="cidades" [(ngModel)]="pessoa.endereco.cidade.id" #cidade="ngModel" required [disabled]="!estadoSelecionado">
 		          <option selected>{{pessoa.endereco.cidade.nome}}</option>
 		          <option *ngFor="let cidade of cidades" value="{{cidade.value}}">{{cidade.label}}</option>
 		        </select>
+		        
 			</div>
 
 	    </div>

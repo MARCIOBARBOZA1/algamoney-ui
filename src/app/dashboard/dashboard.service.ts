@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { environment } from "src/environments/environment";
 import { HttpClient } from "@angular/common/http";
 
@@ -26,15 +27,15 @@ constructor(private http: HttpClient) {
     return this.http.get<any>(`${this.tmpUrl}/estatisticas/por-dia`)
       .toPromise()
       .then(response => {
-        const datas = response;
-        this.converterStringsParaDatas(datas);
-        return datas;
+        const dados = response;
+        this.converterStringsParaDatas(dados);
+        return dados;
       });
   }
 
-  private converterStringsParaDatas(datas: Array<any>) {
-    for (const d of datas) {
-      d.dia = moment(d.dia, 'YYYY-MM-DD').toDate();
+  private converterStringsParaDatas(dados: Array<any>) {
+    for (const dado of dados) {
+      dado.dia = moment(dado.dia, 'YYYY-MM-DD').toDate();
     }
   }
   

@@ -8,7 +8,8 @@
     <div>
         <h2>Dashboard</h2>
     </div>
-    <google-chart #chart
+    
+    <google-chart #pieChartData
 	   [title]="title"
 	   [type]="type"
 	   [data]="data"
@@ -17,6 +18,10 @@
 	   [width]="width"
 	   [height]="height">
 	</google-chart>
-       
+
+	<div id="pieChartData" style="width: 900px; height: 500px;"></div>       
+
+	<div id="lineChartData" style="width: 900px; height: 500px;"></div>       
+
 </div>
 

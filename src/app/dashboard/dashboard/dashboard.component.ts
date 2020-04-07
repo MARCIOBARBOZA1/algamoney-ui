@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from "src/app/dashboard/dashboard.service";
-import { ErrorHandlerService } from "src/app/core/error-handler.service";
-import { AuthService } from "src/app/seguranca/auth.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -38,12 +36,12 @@ export class DashboardComponent implements OnInit {
   
   configurarGraficoPizza() {
       this.dashboardService.lancamentosPorCategoria()
-        .then(datas => {
+        .then(dados => {
           this.pieChartData = {
-            columnNames: datas.map(data => data.categoria.nome),
+            columnNames: dados.map(dado => dado.categoria.nome),
             datasets: [
               {
-                data: datas.map(data => data.total),
+                data: dados.map(data => data.total),
                 options: {colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6'], is3D: true}
               }
             ],

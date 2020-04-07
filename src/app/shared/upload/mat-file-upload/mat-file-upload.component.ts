@@ -26,11 +26,10 @@ export class MatFileUploadComponent implements OnInit {
       @Input() text = 'Upload';
       /** Name used in form which will be sent in HTTP request. */
       @Input() param = 'file';
-      @Input() param2 = this.lancamentoService.antesUploadAnexo();
       /** Target URL for file uploading. */
-      @Input() target = 'https://file.io';
+      //@Input() target = 'https://file.io';
       //@Input() target = 'http://localhost:8080/lancamentos/anexo';
-      //@Input() target = this.lancamentoService.urlUploadAnexo();
+      @Input() target = this.lancamentoService.urlUploadAnexo();
       /** File extension that accepted, same as 'accept' of <input type="file" />. 
           By the default, it's set to 'image/*'. */
       @Input() accept = 'image/*';
@@ -74,10 +73,12 @@ export class MatFileUploadComponent implements OnInit {
       private uploadFile(file: FileUploadModel) {
             const fd = new FormData();
             fd.append(this.param, file.data);
+            console.log('fd:');
             console.log(fd);
+            console.log('file data:');
             console.log(file.data);
+            console.log('param:');
             console.log(this.param);
-            console.log(this.param2);
             
             const req = new HttpRequest('POST', this.target, fd, {
                   reportProgress: true

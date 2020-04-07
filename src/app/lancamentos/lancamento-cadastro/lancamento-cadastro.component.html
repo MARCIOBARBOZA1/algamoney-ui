@@ -60,11 +60,11 @@
     </div>
 
     <div style="text-align:left">
-      <app-mat-file-upload accept="image/*,application/*" (param)="antesUploadAnexo($event)" (complete)="onFileComplete($event)"></app-mat-file-upload>
+      <app-mat-file-upload accept="image/*,application/*" (onBeforeSend)="antesUploadAnexo($event)" (onUpload)="aoTerminarUploadAnexo($event)" (onError)="erroUpload($event)" (param)="urlUploadAnexo" (complete)="onFileComplete($event)"></app-mat-file-upload>
 	</div>
     
     <div class="col">
-      <button type="submit" class="btn btn-outline-primary" [disabled]="formulario.invalid">Salvar</button>
+      <button type="submit" class="btn btn-outline-primary" [disabled]="formulario.invalid || uploadEmAndamento">Salvar</button>
       &nbsp;
       <a (click)="novo()" type="button" class="btn btn-outline-secondary">Novo</a>
       &nbsp;

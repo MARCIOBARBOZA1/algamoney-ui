@@ -51,18 +51,19 @@ export class PessoaContatoFormComponent implements OnInit {
     }
 
     prepararEdicaoContato(contato: Contato, index: number) {
+      this.contato = this.clonarContato(contato);
+      this.exbindoFormularioContato = true;
+      this.contatoIndex = index;
       console.log('Chegou em prepararEdicaoContato:');
       console.log(contato);
       console.log('Terminou.');
-      this.contato = this.clonarContato(contato);
-      this.contatoIndex = index;
-      this.exbindoFormularioContato = true;
       this.openDialog();
     }
 
   confirmarContato(frm: FormControl) {
       //this.contatos.push(this.contato);
-      this.pessoa.contatos.push(this.clonarContato(this.contato));
+      //this.pessoa.contatos.push(this.clonarContato(this.contato));
+      this.pessoa.contatos[this.contatoIndex] = this.clonarContato(this.contato);
       
       this.exbindoFormularioContato = false;
 
