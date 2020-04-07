@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Contato, Pessoa } from "src/app/core/model";
-import { FormControl } from '@angular/forms';
+import { FormControl, NgForm } from '@angular/forms';
 import { MatDialog } from "@angular/material/dialog";
 import { MatTable } from "@angular/material/table";
 
@@ -22,7 +22,7 @@ export class PessoaContatoCadastroComponent implements OnInit {
   ngOnInit(): void {
   }
   
-  displayedColumns: string[] = ['nome', 'email', 'telefone', 'star'];
+  displayedColumns: string[] = ['nome', 'email', 'telefone'];
   
   @ViewChild('contatosTable') private contatosTable: MatTable<Contato>;
 
@@ -44,7 +44,7 @@ export class PessoaContatoCadastroComponent implements OnInit {
       });
   }
 
-  confirmarContato(frm: FormControl) {
+  confirmarContato(frm: NgForm) {
       console.log('chegou aqui confirmar contato');
       console.log(this.pessoa.contatos);
       this.pessoa.contatos[this.contatoIndex] = this.clonarContato(this.contato);

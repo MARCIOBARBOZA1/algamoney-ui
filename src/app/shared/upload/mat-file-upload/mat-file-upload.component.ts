@@ -25,7 +25,7 @@ export class MatFileUploadComponent implements OnInit {
     
       @Input() text = 'Upload';
       /** Name used in form which will be sent in HTTP request. */
-      @Input() param = 'file';
+      @Input() param = 'arquivo';
       /** Target URL for file uploading. */
       //@Input() target = 'https://file.io';
       //@Input() target = 'http://localhost:8080/lancamentos/anexo';
@@ -37,7 +37,7 @@ export class MatFileUploadComponent implements OnInit {
       /** Allow you to add handler after its completion. Bubble up response text from remote. */
       @Output() complete = new EventEmitter<string>();
 
-      public files: Array<FileUploadModel> = [];
+      public arquivos: Array<FileUploadModel> = [];
 
       constructor(
               private lancamentoService: LancamentoService,
@@ -51,8 +51,8 @@ export class MatFileUploadComponent implements OnInit {
             const fileUpload = document.getElementById('fileUpload') as HTMLInputElement;
             fileUpload.onchange = () => {
                   for (let index = 0; index < fileUpload.files.length; index++) {
-                        const file = fileUpload.files[index];
-                        this.files.push({ data: file, state: 'in', 
+                        const arquivo = fileUpload.files[index];
+                        this.arquivos.push({ data: arquivo, state: 'in', 
                           inProgress: false, progress: 0, canRetry: false, canCancel: true });
                   }
                   this.uploadFiles();
@@ -60,23 +60,23 @@ export class MatFileUploadComponent implements OnInit {
             fileUpload.click();
       }
 
-      cancelFile(file: FileUploadModel) {
-            file.sub.unsubscribe();
-            this.removeFileFromArray(file);
+      cancelFile(arquivo: FileUploadModel) {
+            arquivo.sub.unsubscribe();
+            this.removeFileFromArray(arquivo);
       }
 
-      retryFile(file: FileUploadModel) {
-            this.uploadFile(file);
-            file.canRetry = false;
+      retryFile(arquivo: FileUploadModel) {
+            this.uploadFile(arquivo);
+            arquivo.canRetry = false;
       }
 
-      private uploadFile(file: FileUploadModel) {
+      private uploadFile(arquivo: FileUploadModel) {
             const fd = new FormData();
-            fd.append(this.param, file.data);
+            fd.append(this.param, arquivo.data);
             console.log('fd:');
             console.log(fd);
-            console.log('file data:');
-            console.log(file.data);
+            console.log('arquivo data:');
+            console.log(arquivo.data);
             console.log('param:');
             console.log(this.param);
             
@@ -86,12 +86,12 @@ export class MatFileUploadComponent implements OnInit {
             
             console.log(req);
             
-            file.inProgress = true;
-            file.sub = this._http.request(req).pipe(
+            arquivo.inProgress = true;
+            arquivo.sub = this._http.request(req).pipe(
                   map(event => {
                         switch (event.type) {
                               case HttpEventType.UploadProgress:
-                                    file.progress = Math.round(event.loaded * 100 / event.total);
+                                    arquivo.progress = Math.round(event.loaded * 100 / event.total);
                                     break;
                               case HttpEventType.Response:
                                     return event;
@@ -100,14 +100,14 @@ export class MatFileUploadComponent implements OnInit {
                   tap(message => { }),
                   last(),
                   catchError((error: HttpErrorResponse) => {
-                        file.inProgress = false;
-                        file.canRetry = true;
-                        return of(`${file.data.name} upload failed.`);
+                        arquivo.inProgress = false;
+                        arquivo.canRetry = true;
+                        return of(`${arquivo.data.name} upload failed.`);
                   })
             ).subscribe(
                   (event: any) => {
                         if (typeof (event) === 'object') {
-                              this.removeFileFromArray(file);
+                              this.removeFileFromArray(arquivo);
                               this.complete.emit(event.body);
                         }
                   }
@@ -118,15 +118,15 @@ export class MatFileUploadComponent implements OnInit {
             const fileUpload = document.getElementById('fileUpload') as HTMLInputElement;
             fileUpload.value = '';
 
-            this.files.forEach(file => {
-                  this.uploadFile(file);
+            this.arquivos.forEach(arquivo => {
+                  this.uploadFile(arquivo);
             });
       }
 
-      private removeFileFromArray(file: FileUploadModel) {
-            const index = this.files.indexOf(file);
+      private removeFileFromArray(arquivo: FileUploadModel) {
+            const index = this.arquivos.indexOf(arquivo);
             if (index > -1) {
-                  this.files.splice(index, 1);
+                  this.arquivos.splice(index, 1);
             }
       }
 

@@ -1,7 +1,7 @@
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, NgForm } from '@angular/forms';
 
 import { ErrorHandlerService } from './../../core/error-handler.service';
 import { PessoaService } from './../pessoa.service';
@@ -78,7 +78,7 @@ export class PessoaCadastroComponent implements OnInit {
       .catch(erro => this.errorHandler.handle(erro));
   }
 
-  salvar(form: FormControl) {
+  salvar(form: NgForm) {
     if (this.editando) {
       this.atualizarPessoa(form);
     } else {
@@ -86,7 +86,7 @@ export class PessoaCadastroComponent implements OnInit {
     }
   }
 
-  adicionarPessoa(form: FormControl) {
+  adicionarPessoa(form: NgForm) {
     this.pessoaService.adicionar(this.pessoa)
       .then(pessoaAdicionada => {
           this._snackBar.open('Lançamento adicionado com sucesso!','', {
@@ -97,7 +97,7 @@ export class PessoaCadastroComponent implements OnInit {
       .catch(erro => this.errorHandler.handle(erro));
   }
 
-  atualizarPessoa(form: FormControl) {
+  atualizarPessoa(form: NgForm) {
       console.log('chegou em atualizarPessoa')
     this.pessoaService.atualizar(this.pessoa)
       .then(pessoa => {
@@ -113,7 +113,7 @@ export class PessoaCadastroComponent implements OnInit {
       .catch(erro => this.errorHandler.handle(erro));
   }
 
-  nova(form: FormControl) {
+  nova(form: NgForm) {
     form.reset();
 
     setTimeout(function() {

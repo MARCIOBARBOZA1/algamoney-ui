@@ -1,23 +1,22 @@
 <div class="container-fluid">
-	<form #contatoForm="ngForm" (ngSubmit)="confirmarContato(contatoForm)">
-		<h2>{{editando ? 'Edição de' : 'Novo'}} Contato</h2>
-
-		<div class="form-group">
-			<label>Nome</label>
-			<input class="form-control" name="nome" type="text" [(ngModel)]="contato.nome" required>			
-		</div>
-		<div class="form-group">
-			<label>Email</label>
-			<input class="form-control" name="email" [(ngModel)]="contato.email" type="email" required>
-		</div>
-		<div class="form-group">
-			<label>Telefone</label>
-			<input class="form-control" name="telefone" [(ngModel)]="contato.telefone" type="text">			
-		</div>
+		<table #contatosTable mat-table [dataSource]="contatos">
+			<h2>{{editando ? 'Edição de' : 'Novo'}} Contato</h2>
 		
-		<div mat-dialog-actions>
-		  <button mat-button class="btn btn-outline-danger" (click)="onClickNO()" cdkFocusInitial>Cancelar</button>
-		  <button mat-button class="btn btn-outline-success" [mat-dialog-close]="contato" type="submit" cdkFocusInitial>Confirmar</button>
-		</div>
-	</form>
+			<mat-form-field>
+			  <mat-label>Nome</mat-label>
+			  <input matInput [(ngModel)]="contato.nome" required>
+			</mat-form-field>
+			<mat-form-field>
+			  <mat-label>E-mail</mat-label>
+			  <input matInput [(ngModel)]="contato.email" required>
+			</mat-form-field>
+			<mat-form-field>
+			  <mat-label>Telefone</mat-label>
+			  <input matInput [(ngModel)]="contato.telefone" required>
+			</mat-form-field>
+			<div mat-dialog-actions>
+			  <button mat-button (click)="onNoClick()">Cancelar</button>
+			  <button mat-button [mat-dialog-close]="contato" type="submit" cdkFocusInitial>Confirmar</button>
+			</div>
+		</table>
 </div>
