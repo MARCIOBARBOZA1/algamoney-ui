@@ -22,6 +22,7 @@ import { LancamentoService } from "src/app/lancamentos/lancamento.service";
 })
 export class MatFileUploadComponent implements OnInit {
     
+      @Output() onUpload = new EventEmitter<string>();
     
       @Input() text = 'Upload';
       /** Name used in form which will be sent in HTTP request. */
@@ -120,6 +121,10 @@ export class MatFileUploadComponent implements OnInit {
             if (index > -1) {
                   this.anexos.splice(index, 1);
             }
+      }
+      
+      public onUploadEvent() {
+          this.onUpload.emit(event.body);
       }
 
 }
