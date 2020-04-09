@@ -17,7 +17,9 @@ export class PessoaContatoCadastroComponent implements OnInit {
   pessoa = new Pessoa();
   exbindoFormularioContato = false;
   
-  constructor(private dialog: MatDialog) { }
+  constructor(
+          private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
   }
@@ -42,6 +44,7 @@ export class PessoaContatoCadastroComponent implements OnInit {
         this.contatos.push(this.contato);
         this.contatosTable.renderRows()
       });
+      
   }
 
   confirmarContato(frm: NgForm) {
