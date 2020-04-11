@@ -79,6 +79,7 @@ export class MatFileUploadComponent implements OnInit {
                   reportProgress: true
             });
             
+            console.log('target: ', this.target);
             anexo.inProgress = true;
             anexo.sub = this._http.request(req).pipe(
                   map(event => {
@@ -102,6 +103,9 @@ export class MatFileUploadComponent implements OnInit {
                         if (typeof (event) === 'object') {
                               this.removeFileFromArray(anexo);
                               this.complete.emit(event.body);
+                              this.onUpload.emit(event.body);
+                              console.log('Event body: ', event.body);
+                              console.log('Anexo: ', anexo);
                         }
                   }
             );
@@ -121,10 +125,6 @@ export class MatFileUploadComponent implements OnInit {
             if (index > -1) {
                   this.anexos.splice(index, 1);
             }
-      }
-      
-      public onUploadEvent() {
-          this.onUpload.emit(event.body);
       }
 
 }

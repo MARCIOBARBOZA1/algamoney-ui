@@ -59,6 +59,10 @@
       <textarea class="form-control" rows="3" name="observacao" formControlName="observacao"></textarea>
     </div>
 
+    <div style="text-align:left" *ngIf="!formulario.get('anexo').value">
+      <app-mat-file-upload accept="image/*,application/*" (onBeforeSend)="antesUploadAnexo($event)" (onError)="erroUpload($event)" (param)="urlUploadAnexo" (complete)="onFileComplete($event)" (onUpload)="aoTerminarUploadAnexo($event)"></app-mat-file-upload>
+	</div>
+		
     <div class="modal-content" *ngIf="formulario.get('anexo').value">
 	    <div class="modal-footer">
 	      <a target="_blank" type="button" class="btn btn-outline-secondary"
@@ -69,12 +73,7 @@
     </div>
     
 	<br>
-	
-    <div style="text-align:left" *ngIf="!formulario.get('anexo').value">
-      <app-mat-file-upload accept="image/*,application/*" (onBeforeSend)="antesUploadAnexo($event)" (onError)="erroUpload($event)" (param)="urlUploadAnexo" (complete)="onFileComplete($event)" (onUpload)="aoTerminarUploadAnexo($event)"></app-mat-file-upload>
-	</div>
-		
-    
+	    
     <div class="col">
       <button type="submit" class="btn btn-outline-primary" [disabled]="formulario.invalid || uploadEmAndamento">Salvar</button>
       &nbsp;

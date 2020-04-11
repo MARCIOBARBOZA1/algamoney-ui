@@ -1,6 +1,6 @@
 import { Title } from '@angular/platform-browser';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -23,7 +23,7 @@ export class LancamentoCadastroComponent implements OnInit {
     { label: 'Receita', value: 'RECEITA' },
     { label: 'Despesa', value: 'DESPESA' },
   ];
-
+  
   categorias = [];
   pessoas = [];
   //lancamento = new Lancamento();
@@ -58,6 +58,39 @@ export class LancamentoCadastroComponent implements OnInit {
     
   }
   
+  antesUploadAnexo(event) {
+      event.xhr.setRequestHeader('Autorization', 'Bearer ' + localStorage.getItem('token'));
+      
+      this.uploadEmAndamento = true;
+  }
+  
+  aoTerminarUploadAnexo(event) {
+      const anexo = event.xhr.response;
+
+      this.formulario.patchValue({
+        anexo: anexo.nome,
+        urlAnexo: anexo.url
+      });
+
+      this.uploadEmAndamento = false;
+      
+  }
+
+  get nomeAnexo() {
+      const nome = this.formulario.get('anexo').value;
+
+      if (nome) {
+        return nome.substring(nome.indexOf('_') + 1, nome.length);
+      }
+
+      return '';
+  }
+
+  get urlUploadAnexo() {
+      console.log('urlUploadAnexo: ', this.lancamentoService.urlUploadAnexo());
+      return this.lancamentoService.urlUploadAnexo();
+  }
+
   configurarFormulario() {
       this.formulario = this.formBuilder.group({
         id: [],
@@ -90,29 +123,6 @@ export class LancamentoCadastroComponent implements OnInit {
       };
   }
   
-  antesUploadAnexo(event) {
-      console.log('chegou aqui10 mat-file-upload');
-      event.xhr.setRequestHeader('Autorization', 'Bearer ' + localStorage.getItem('token'));
-      
-      this.uploadEmAndamento = true;
-  }
-  
-  aoTerminarUploadAnexo(event) {
-      const anexo = event.xhr.response;
-
-      this.formulario.patchValue({
-        anexo: anexo.nome,
-        urlAnexo: anexo.url
-      });
-      console.log('Chegou aoTerminarUpload');
-      console.log(anexo);
-      console.log(anexo.nome);
-      console.log(anexo.url);
-
-      this.uploadEmAndamento = false;
-      
-  }
-
   erroUpload(event) {
       this._snackBar.open('Erro ao tentar enviar anexo!','', {
           duration: 2000
@@ -120,22 +130,7 @@ export class LancamentoCadastroComponent implements OnInit {
 
       this.uploadEmAndamento = false;
   }
-
-  get nomeAnexo() {
-      const nome = this.formulario.get('anexo').value;
-
-      if (nome) {
-        return nome.substring(nome.indexOf('_') + 1, nome.length);
-      }
-
-      return '';
-  }
-
   
-  get urlUploadAnexo() {
-      return this.lancamentoService.urlUploadAnexo();
-  }
-
   onFileComplete(data: any) {
       console.log('chegou aqui onFileComplete');
       console.log(data); // We just print out data bubbled up from event emitter.
