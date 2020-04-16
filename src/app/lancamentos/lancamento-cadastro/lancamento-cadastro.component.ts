@@ -2,6 +2,7 @@ import { Title } from '@angular/platform-browser';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatDialog } from "@angular/material/dialog";
@@ -65,8 +66,8 @@ export class LancamentoCadastroComponent implements OnInit {
   }
   
   aoTerminarUploadAnexo(event) {
-      const anexo = event.xhr.response;
-
+      const anexo = event.body;
+      
       this.formulario.patchValue({
         anexo: anexo.nome,
         urlAnexo: anexo.url
@@ -76,6 +77,20 @@ export class LancamentoCadastroComponent implements OnInit {
       
   }
 
+  erroUpload(event) {
+      this._snackBar.open('Erro ao tentar enviar anexo!','', {
+          duration: 2000
+      });
+
+      this.uploadEmAndamento = false;
+  }
+
+  removerAnexo() {
+    this.formulario.patchValue({
+      anexo: null,
+      urlAnexo: null
+    });
+  }
   get nomeAnexo() {
       const nome = this.formulario.get('anexo').value;
 
@@ -87,7 +102,6 @@ export class LancamentoCadastroComponent implements OnInit {
   }
 
   get urlUploadAnexo() {
-      console.log('urlUploadAnexo: ', this.lancamentoService.urlUploadAnexo());
       return this.lancamentoService.urlUploadAnexo();
   }
 
@@ -122,15 +136,7 @@ export class LancamentoCadastroComponent implements OnInit {
         return (!input.value || input.value.length >= valor) ? null : { tamanhoMinimo: { tamanho: valor } };
       };
   }
-  
-  erroUpload(event) {
-      this._snackBar.open('Erro ao tentar enviar anexo!','', {
-          duration: 2000
-      });
-
-      this.uploadEmAndamento = false;
-  }
-  
+    
   onFileComplete(data: any) {
       console.log('chegou aqui onFileComplete');
       console.log(data); // We just print out data bubbled up from event emitter.

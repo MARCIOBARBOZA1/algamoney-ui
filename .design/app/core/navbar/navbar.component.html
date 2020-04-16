@@ -1,0 +1,35 @@
+<nav class="navbar fixed-top navbar-light bg-light" (contextmenu)="__elementSelectionService.select('1688422377',$event)" [ngStyle]="__elementSelectionService.getStyles('1688422377')"(click)='__elementSelectionService.clear()'>
+  <a class="navbar-brand" href="#" (contextmenu)="__elementSelectionService.select('1850447631',$event)" [ngStyle]="__elementSelectionService.getStyles('1850447631')">
+    <img src="../../assets/imeges/logomarca_transparent.png" width="70%" height="70%" class="d-inline-block align-top" alt (contextmenu)="__elementSelectionService.select('427554070',$event)" [ngStyle]="__elementSelectionService.getStyles('427554070')">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (contextmenu)="__elementSelectionService.select('1738110431',$event)" [ngStyle]="__elementSelectionService.getStyles('1738110431')">
+    <span class="navbar-toggler-icon" (contextmenu)="__elementSelectionService.select('1480578182',$event)" [ngStyle]="__elementSelectionService.getStyles('1480578182')"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" (contextmenu)="__elementSelectionService.select('1786692449',$event)" [ngStyle]="__elementSelectionService.getStyles('1786692449')">
+    <ul class="navbar-nav mr-auto" (contextmenu)="__elementSelectionService.select('753617021',$event)" [ngStyle]="__elementSelectionService.getStyles('753617021')">
+      <li class="navbar-text mb-0 h5" (contextmenu)="__elementSelectionService.select('15787954',$event)" [ngStyle]="__elementSelectionService.getStyles('15787954')">
+      	{{ auth.jwtPayload.nome }}
+      </li>
+      <li class="nav-item" *ngIf="auth.temPermissao('ROLE_PESQUISAR_LANCAMENTO')" (contextmenu)="__elementSelectionService.select('651004110',$event)" [ngStyle]="__elementSelectionService.getStyles('651004110')">
+        <a class="nav-link" routerLink="/dashboard" (contextmenu)="__elementSelectionService.select('984883901',$event)" [ngStyle]="__elementSelectionService.getStyles('984883901')">Dashboard</a>
+      </li>
+      <li class="nav-item active" *ngIf="auth.temPermissao('ROLE_PESQUISAR_LANCAMENTO')" (contextmenu)="__elementSelectionService.select('1290415414',$event)" [ngStyle]="__elementSelectionService.getStyles('1290415414')">
+        <a class="nav-link" routerLink="/lancamentos" (contextmenu)="__elementSelectionService.select('1260424814',$event)" [ngStyle]="__elementSelectionService.getStyles('1260424814')">Lancamentos <span class="sr-only" (contextmenu)="__elementSelectionService.select('31581244',$event)" [ngStyle]="__elementSelectionService.getStyles('31581244')">(current)</span></a>
+      </li>
+      <li class="nav-item" *ngIf="auth.temPermissao('ROLE_PESQUISAR_PESSOA')" (contextmenu)="__elementSelectionService.select('450600823',$event)" [ngStyle]="__elementSelectionService.getStyles('450600823')">
+        <a class="nav-link" routerLink="/pessoas" (contextmenu)="__elementSelectionService.select('130384519',$event)" [ngStyle]="__elementSelectionService.getStyles('130384519')">Pessoas</a>
+      </li>
+      <li class="nav-item" *ngIf="auth.temPermissao('ROLE_PESQUISAR_LANCAMENTO')" (contextmenu)="__elementSelectionService.select('1213808623',$event)" [ngStyle]="__elementSelectionService.getStyles('1213808623')">
+        <a class="nav-link" routerLink="/relatorios/lancamentos" (contextmenu)="__elementSelectionService.select('1175974620',$event)" [ngStyle]="__elementSelectionService.getStyles('1175974620')">Relatorios</a>
+      </li>
+      <li class="nav-item" (contextmenu)="__elementSelectionService.select('15854926',$event)" [ngStyle]="__elementSelectionService.getStyles('15854926')">
+        <a class="nav-link" href="#" (click)="logout()" (contextmenu)="__elementSelectionService.select('730564205',$event)" [ngStyle]="__elementSelectionService.getStyles('730564205')">Logout</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" (contextmenu)="__elementSelectionService.select('715944628',$event)" [ngStyle]="__elementSelectionService.getStyles('715944628')">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" (contextmenu)="__elementSelectionService.select('1398072367',$event)" [ngStyle]="__elementSelectionService.getStyles('1398072367')">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (contextmenu)="__elementSelectionService.select('1547757718',$event)" [ngStyle]="__elementSelectionService.getStyles('1547757718')">Search</button>
+    </form>
+  </div>
+</nav>

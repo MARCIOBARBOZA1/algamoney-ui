@@ -44,7 +44,6 @@ exports: [
   PaginationModule,
   MatPaginatorModule,
   MatPaginatorComponent,
-  MatInputModule,
   MatSnackBarModule,
   MatIconModule,
   MatProgressBarModule,

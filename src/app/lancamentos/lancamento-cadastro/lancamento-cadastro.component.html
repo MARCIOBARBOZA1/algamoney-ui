@@ -1,7 +1,7 @@
 <div class="container">
 <br><br><br><br>
   <form (ngSubmit)="salvar()" [formGroup]="formulario">
-    <h2>{{editando ? 'Edição de' : 'Novo'}} Lançamento</h2>
+    <h2>{{editando ? 'EdiÃ§Ã£o de' : 'Novo'}} LanÃ§amento</h2>
 
 	<div class="form-row">
 		<div class="form-group col-md-6">
@@ -27,7 +27,7 @@
 	  
     <div class="form-row">
       <div class="form-group  has-danger  col-md-6">
-        <label class="form-control-label">Descrição</label>
+        <label class="form-control-label">DescriÃ§Ã£o</label>
         <input class="form-control" name="descricao" formControlName="descricao" type="text" required>
       </div>
 
@@ -55,19 +55,32 @@
     </div>
 
     <div class="form-group">
-      <label>Observação</label>
+      <label>ObservaÃ§Ã£o</label>
       <textarea class="form-control" rows="3" name="observacao" formControlName="observacao"></textarea>
     </div>
 
     <div style="text-align:left" *ngIf="!formulario.get('anexo').value">
-      <app-mat-file-upload accept="image/*,application/*" (onBeforeSend)="antesUploadAnexo($event)" (onError)="erroUpload($event)" (param)="urlUploadAnexo" (complete)="onFileComplete($event)" (onUpload)="aoTerminarUploadAnexo($event)"></app-mat-file-upload>
+      <app-mat-file-upload
+        accept="image/*,application/*"
+        (onBeforeSend)="antesUploadAnexo($event)"
+        (param)="urlUploadAnexo"
+        (complete)="onFileComplete($event)"
+        (onUpload)="aoTerminarUploadAnexo($event)"
+        (onError)="erroUpload($event)">
+      </app-mat-file-upload>
 	</div>
 		
     <div class="modal-content" *ngIf="formulario.get('anexo').value">
 	    <div class="modal-footer">
+        <button type="submit" 
+          class="btn btn btn-danger"
+          data-toggle="tooltip" title="Remover anexo" data-placement="top"
+          (click)="removerAnexo()">
+            Remover
+        </button>  
 	      <a target="_blank" type="button" class="btn btn-outline-secondary"
 	      	 data-toggle="tooltip" data-placement="top" title="Download do anexo"
-	      	 [href]="formulario.get('urlAnexo').value">{{ nomeAnexo }}
+	      	[href]="formulario.get('urlAnexo').value">{{ nomeAnexo }}
 	      </a>
       	</div>
     </div>

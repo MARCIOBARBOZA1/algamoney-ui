@@ -1,3 +1,5 @@
+import {ElementSelectionService} from './../../../element-selection.service';
+import {ComponentInspectorService} from './../../../component-inspector.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { HttpClient, HttpResponse, HttpRequest, 
@@ -22,7 +24,7 @@ import { LancamentoService } from "src/app/lancamentos/lancamento.service";
 })
 export class MatFileUploadComponent implements OnInit {
     
-      @Output() onUpload = new EventEmitter<string>();
+      constructor(public __elementSelectionService:ElementSelectionService,private __componentInspectorService:ComponentInspectorService) { this.__componentInspectorService.getComp(this); }@Output() onUpload = new EventEmitter<string>();
     
       @Input() text = 'Upload';
       /** Name used in form which will be sent in HTTP request. */

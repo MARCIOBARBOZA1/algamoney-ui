@@ -1,22 +1,21 @@
 <div class="container-fluid">
-		<table #contatosTable mat-table [dataSource]="contatos">
-			<h2>{{editando ? 'Edição de' : 'Novo'}} Contato</h2>
-		
+	<table #contatosTable mat-table [dataSource]="contato">
+		<h2>{{editando ? 'EdiÃ§Ã£o de' : 'Novo'}} Contato</h2>
 			<mat-form-field>
-			  <mat-label>Nome</mat-label>
-			  <input matInput [(ngModel)]="contato.nome" required>
+			<mat-label>Nome</mat-label>
+			<input matInput [(ngModel)]="contato.nome" required>
 			</mat-form-field>
 			<mat-form-field>
-			  <mat-label>E-mail</mat-label>
-			  <input matInput [(ngModel)]="contato.email" required>
+			<mat-label>E-mail</mat-label>
+			<input matInput [(ngModel)]="contato.email" required>
 			</mat-form-field>
 			<mat-form-field>
-			  <mat-label>Telefone</mat-label>
-			  <input matInput [(ngModel)]="contato.telefone" required>
+			<mat-label>Telefone</mat-label>
+			<input matInput [(ngModel)]="contato.telefone" required>
 			</mat-form-field>
-			<div mat-dialog-actions>
-			  <button mat-button>Cancelar</button>
-			  <button mat-button [mat-dialog-close]="contato" type="submit" cdkFocusInitial>Confirmar</button>
-			</div>
-		</table>
+		<div mat-dialog-actions>
+			<button mat-button>Cancelar</button>
+			<button mat-button [mat-dialog-close]="contato" type="submit" cdkFocusInitial>Confirmar</button>
+		</div>
+	</table>
 </div>

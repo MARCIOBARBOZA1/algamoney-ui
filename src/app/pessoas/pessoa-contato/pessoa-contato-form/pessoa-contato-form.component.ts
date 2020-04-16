@@ -55,7 +55,7 @@ export class PessoaContatoFormComponent implements OnInit {
       this.exbindoFormularioContato = true;
       this.contatoIndex = index;
       console.log('Chegou em prepararEdicaoContato:');
-      console.log(contato);
+      console.log('Contato: ', contato);
       console.log('Terminou.');
       this.openDialog();
     }
