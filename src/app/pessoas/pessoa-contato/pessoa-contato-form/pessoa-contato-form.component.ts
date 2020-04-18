@@ -28,6 +28,8 @@ export class PessoaContatoFormComponent implements OnInit {
   @ViewChild('contatosTable') private contatosTable: MatTable<Contato>;
 
   openDialog(): void {
+      console.log('Chegou em openDialog ------> ', this.contato);
+
       const dialogRef = this.dialog.open(PessoaContatoCadastroComponent, {
         width: '640px',
         height: '400px',
@@ -54,9 +56,6 @@ export class PessoaContatoFormComponent implements OnInit {
       this.contato = this.clonarContato(contato);
       this.exbindoFormularioContato = true;
       this.contatoIndex = index;
-      console.log('Chegou em prepararEdicaoContato:');
-      console.log('Contato: ', contato);
-      console.log('Terminou.');
       this.openDialog();
     }
 

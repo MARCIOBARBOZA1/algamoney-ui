@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Contato, Pessoa } from "src/app/core/model";
-import { FormControl, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { MatDialog } from "@angular/material/dialog";
 import { MatTable } from "@angular/material/table";
 
@@ -11,9 +11,9 @@ import { MatTable } from "@angular/material/table";
 })
 export class PessoaContatoCadastroComponent implements OnInit {
     
-  @Input() contatos: Array<Contato>;
-  contato: Contato;
+  @Input() Contato: Array<Contato>;
   contatoIndex: number;
+  contato = new Contato();
   pessoa = new Pessoa();
   exbindoFormularioContato = false;
   
@@ -28,28 +28,10 @@ export class PessoaContatoCadastroComponent implements OnInit {
   
   @ViewChild('contatosTable') private contatosTable: MatTable<Contato>;
 
-  openDialog(): void {
-      const dialogRef = this.dialog.open(PessoaContatoCadastroComponent, {
-        width: '608px',
-        height: '800px',
-        //data: {data: this.contato = new Contato()}
-        data: this.contato = new Contato()
-      });
-      
-
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-        console.log(this.contato)
-        this.contato = result;
-        this.contatos.push(this.contato);
-        this.contatosTable.renderRows()
-      });
-      
-  }
-
   confirmarContato(frm: NgForm) {
       console.log('chegou aqui confirmar contato');
-      console.log(this.pessoa.contatos);
+      console.log('chegou pessoa contatos--->',this.pessoa.contatos);
+      console.log('chegou contato index e contato--->',this.contatoIndex, this.contato );
       this.pessoa.contatos[this.contatoIndex] = this.clonarContato(this.contato);
 
       frm.reset();
