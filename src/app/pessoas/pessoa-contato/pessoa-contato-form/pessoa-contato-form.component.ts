@@ -13,10 +13,9 @@ import { PessoaContatoCadastroComponent } from "src/app/pessoas/pessoa-contato/p
 export class PessoaContatoFormComponent implements OnInit {
     
   @Input() contatos: Array<Contato>;
-  contato: Contato;
+  contato = new Contato();
   contatoIndex: number;
   pessoa = new Pessoa();
-  exbindoFormularioContato = false;
   
   constructor(private dialog: MatDialog) { }
 
@@ -24,62 +23,60 @@ export class PessoaContatoFormComponent implements OnInit {
   }
   
   displayedColumns: string[] = ['nome', 'email', 'telefone', 'star'];
-  
+
   @ViewChild('contatosTable') private contatosTable: MatTable<Contato>;
 
   openDialog(): void {
-      console.log('Chegou em openDialog ------> ', this.contato);
+    //console.log('Chegou em openDialog --> ', this.contato);
 
-      const dialogRef = this.dialog.open(PessoaContatoCadastroComponent, {
-        width: '640px',
-        height: '400px',
-        //data: {data: this.contato = new Contato()}
-        data: this.contato = new Contato()
-      });
-      
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-        console.log(this.contato)
-        this.contato = result;
-        this.contatos.push(this.contato);
-        this.contatosTable.renderRows()
-      });
+    const dialogRef = this.dialog.open(PessoaContatoCadastroComponent, {
+      width: '640px',
+      height: '400px',
+      //data: {data: this.contato = new Contato()}
+      data: this.contato
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(this.contato)
+      this.contato = result;
+      this.contatos.push(this.contato);
+      this.contatosTable.renderRows()
+    });
   }
-  
-  prepararNovoContato() {
-      this.exbindoFormularioContato = true;
-      this.contato = new Contato();
-      this.contatoIndex = this.pessoa.contatos.length;
-    }
 
-    prepararEdicaoContato(contato: Contato, index: number) {
-      this.contato = this.clonarContato(contato);
-      this.exbindoFormularioContato = true;
-      this.contatoIndex = index;
-      this.openDialog();
-    }
+  prepararNovoContato() {
+    this.contato = new Contato();
+    this.contatoIndex = this.pessoa.contatos.length;
+    this.openDialog();
+  }
+
+  prepararEdicaoContato(contato: Contato, index: number) {
+    //console.log('Chegou Edicao-->',contato);
+    this.contato = this.clonarContato(contato);
+    this.contatoIndex = index;
+    this.openDialog();
+  }
+
+  clonarContato(contato: Contato): Contato {
+    return new Contato(contato.id,
+      contato.nome, contato.email, contato.telefone);
+  }
 
   confirmarContato(frm: FormControl) {
-      //this.contatos.push(this.contato);
-      //this.pessoa.contatos.push(this.clonarContato(this.contato));
-      this.pessoa.contatos[this.contatoIndex] = this.clonarContato(this.contato);
-      
-      this.exbindoFormularioContato = false;
+    //this.contatos.push(this.contato);
+    //this.pessoa.contatos.push(this.clonarContato(this.contato));
+    this.pessoa.contatos[this.contatoIndex] = this.clonarContato(this.contato);
+    
+    frm.reset();
+  }
 
-      frm.reset();
-  }
-  
-  clonarContato(contato: Contato): Contato {
-      return new Contato(contato.id,
-        contato.nome, contato.email, contato.telefone);
-  }
-  
   removerContato(index: number) {
-      this.contatos.splice(index, 1);
+    this.contatos.splice(index, 1);
   }
-  
+
   get editando() {
-      return this.contato && this.contato.id;
+    return this.contato && this.contato.id;
   }
 
 }
