@@ -27,7 +27,7 @@ export class PessoaContatoFormComponent implements OnInit {
   @ViewChild('contatosTable') private contatosTable: MatTable<Contato>;
 
   openDialog(): void {
-    //console.log('Chegou em openDialog --> ', this.contato);
+    console.log('Chegou em openDialog --> ', this.contato);
 
     const dialogRef = this.dialog.open(PessoaContatoCadastroComponent, {
       width: '640px',
@@ -39,6 +39,7 @@ export class PessoaContatoFormComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log(this.contato)
+      console.log('result: ', result)
       this.contato = result;
       this.contatos.push(this.contato);
       this.contatosTable.renderRows()

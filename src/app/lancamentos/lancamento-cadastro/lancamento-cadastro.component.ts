@@ -70,7 +70,10 @@ export class LancamentoCadastroComponent implements OnInit {
       
       this.formulario.patchValue({
         anexo: anexo.nome,
-        urlAnexo: anexo.url
+        //Abaixo o código que acredito que tenha quer ser...
+        //urlAnexo: anexo.url
+        //Abaixo o código que recebi para resolver o problema, fixando https!!!
+        urlAnexo: (anexo.url as string).replace('\\', 'https://')
       });
 
       this.uploadEmAndamento = false;

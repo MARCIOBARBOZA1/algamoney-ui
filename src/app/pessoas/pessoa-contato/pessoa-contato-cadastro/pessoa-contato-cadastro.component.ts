@@ -11,10 +11,11 @@ import { MatDialog } from "@angular/material/dialog";
 export class PessoaContatoCadastroComponent implements OnInit {
   
   contato = new Contato();
-
+  
   constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
+    console.log('Contato contato-cadastro: ',this.contato);
   }
   
   onClickNO(): void  {
