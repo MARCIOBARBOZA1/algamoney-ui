@@ -1,19 +1,19 @@
 <div class="container-fluid">
-	<h2>{{editando ? 'Edição de' : 'Novo'}} Contato</h2>
+	<h2>{{editando ? 'Edição de' : 'Novo'}} data</h2>
 	<mat-form-field appearance="fill">
 	<mat-label>Nome</mat-label>
-	<input matInput [(ngModel)]="contato.nome" required>
+	<input matInput [(ngModel)]="data.nome" required>
 	</mat-form-field>
 	<mat-form-field appearance="fill">
 	<mat-label>E-mail</mat-label>
-	<input matInput [(ngModel)]="contato.email" required>
+	<input matInput [(ngModel)]="data.email" required>
 	</mat-form-field>
 	<mat-form-field appearance="fill">
 	<mat-label>Telefone</mat-label>
-	<input matInput [(ngModel)]="contato.telefone" required>
+	<input matInput [(ngModel)]="data.telefone" required>
 	</mat-form-field>
 	<div mat-dialog-actions>
 		<button mat-button (click)="onClickNO()">Cancelar</button>
-		<button mat-button [mat-dialog-close]="contato" type="submit" cdkFocusInitial>Confirmar</button>
+		<button mat-button [mat-dialog-close]="data" type="submit" cdkFocusInitial>Confirmar</button>
 	</div>
 </div>

@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Inject } from '@angular/core';
 import { Contato, Pessoa } from "src/app/core/model";
 import { NgForm, FormControl } from '@angular/forms';
-import { MatDialog } from "@angular/material/dialog";
+import { MatDialog, MAT_DIALOG_DATA } from "@angular/material/dialog";
 
 @Component({
   selector: 'app-pessoa-contato-cadastro',
@@ -10,19 +10,21 @@ import { MatDialog } from "@angular/material/dialog";
 })
 export class PessoaContatoCadastroComponent implements OnInit {
   
-  contato = new Contato();
+  contato = Contato;
+  contatoIndex: number;
   
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit(): void {
-    console.log('Contato contato-cadastro: ',this.contato);
+    this.contato = this.data.contato || new Contato();
   }
   
   onClickNO(): void  {
+    this.contato = this.data;
     this.dialog.closeAll();
   }
 
   get editando() {
-    return this.contato && this.contato.id;
+    return this.contato;
   }
 }
